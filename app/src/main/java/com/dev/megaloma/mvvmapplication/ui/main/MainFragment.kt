@@ -10,6 +10,9 @@ import android.widget.Button
 import android.widget.Toast
 import com.dev.megaloma.mvvmapplication.R
 import com.dev.megaloma.mvvmapplication.databinding.MainFragmentBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.*
 
 class MainFragment : Fragment() {
 
@@ -35,10 +38,20 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var btn = activity!!.findViewById<Button>(R.id.button)
+        val btn = activity!!.findViewById<Button>(R.id.button)
         btn.setOnClickListener {
             Toast.makeText(context,"Click",Toast.LENGTH_SHORT).show()   //("ViewModel Clicked!!")
-            viewModel.setName("Welcome MVVM Kotlin")
+
+            val wikiURL = "https://ja.wikipedia.org/wiki/HTTPS"
+
+            GlobalScope.launch {
+                val client = OkHttpClient()
+                val request: Request = Request.Builder().url(wikiURL).get().build()
+                val call: Call = client.newCall(request)
+                val res: Response = call.execute()
+                val resBody: ResponseBody = res.body()!!
+                viewModel.setName(resBody.string())
+            }
         }
 
     }
