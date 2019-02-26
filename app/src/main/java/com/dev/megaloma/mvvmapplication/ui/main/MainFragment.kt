@@ -10,9 +10,9 @@ import android.widget.Button
 import android.widget.Toast
 import com.dev.megaloma.mvvmapplication.R
 import com.dev.megaloma.mvvmapplication.databinding.MainFragmentBinding
+import com.dev.megaloma.mvvmapplication.http.SimpleHttp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.*
 
 class MainFragment : Fragment() {
 
@@ -45,12 +45,7 @@ class MainFragment : Fragment() {
             val wikiURL = "https://ja.wikipedia.org/wiki/HTTPS"
 
             GlobalScope.launch {
-                val client = OkHttpClient()
-                val request: Request = Request.Builder().url(wikiURL).get().build()
-                val call: Call = client.newCall(request)
-                val res: Response = call.execute()
-                val resBody: ResponseBody = res.body()!!
-                viewModel.setName(resBody.string())
+                viewModel.setName(SimpleHttp.doSimpleHttp(wikiURL))
             }
         }
 
