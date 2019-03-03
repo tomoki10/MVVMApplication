@@ -3,14 +3,18 @@ package com.dev.megaloma.mvvmapplication.ui.main
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import com.dev.megaloma.mvvmapplication.KahunData
 import com.dev.megaloma.mvvmapplication.R
 import com.dev.megaloma.mvvmapplication.databinding.MainFragmentBinding
 import com.dev.megaloma.mvvmapplication.http.SimpleHttp
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -42,10 +46,21 @@ class MainFragment : Fragment() {
         btn.setOnClickListener {
             Toast.makeText(context,"Click",Toast.LENGTH_SHORT).show()   //("ViewModel Clicked!!")
 
-            val wikiURL = "https://ja.wikipedia.org/wiki/HTTPS"
+            val wikiURL = getString(R.string.aws_lambda_url)
+            val apiKey  = getString(R.string.aws_api_key)
+            // 問い合わせ方法によって最後に調整
+            val requestKeyInfo = HashMap<String,String>()
+            requestKeyInfo["SOKUTEI_KYOKU_CODE"] = "5131000"
 
             GlobalScope.launch {
-                viewModel.setName(SimpleHttp.doSimpleHttp(wikiURL))
+                // Httpレスポンスの受け取り
+                val response: String = SimpleHttp.doSimpleHttp(wikiURL, apiKey, requestKeyInfo)
+                //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
+                val json: JsonObject = Gson().fromJson(response,JsonObject::class.java)
+                        .get("body").asJsonObject.get("Item").asJsonObject
+                Log.d("Json return",json.toString())
+                val kahunDataJson: KahunData = Gson().fromJson(json, KahunData::class.java)
+                viewModel.setName(kahunDataJson.toString())
             }
         }
 

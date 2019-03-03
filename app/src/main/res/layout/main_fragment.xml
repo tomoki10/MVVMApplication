@@ -12,10 +12,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <!-- android:visibility="@{viewmodel.dataAvailable ? View.GONE : View.VISIBLE}" -->
-
         <TextView
             android:id="@+id/message"
-            android:textSize="50px"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewmodel.name}" />

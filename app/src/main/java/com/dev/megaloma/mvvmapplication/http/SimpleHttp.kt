@@ -1,16 +1,38 @@
 package com.dev.megaloma.mvvmapplication.http
 
+import android.util.Log
 import okhttp3.*
+import org.json.JSONObject
 
 class SimpleHttp{
-    companion object Factory{
+    companion object SimpleHttp{
+        private const val searchCode = "SOKUTEI_KYOKU_CODE"
+        private val JSON = MediaType.parse("application/json;charset=utf-8")
+
         // 引数のURLでHTTPリクエストを実行し、レスポンスを返す
-        fun doSimpleHttp(httpsStr: String): String{
+        fun doSimpleHttp(httpsStr: String, apiKey: String,
+                         requestKeyInfo: Map<String,String>): String {
             val client = OkHttpClient()
-            val request: Request = Request.Builder().url(httpsStr).get().build()
-            val call: Call = client.newCall(request)
-            val res: Response = call.execute()
+            //POSTメソッドの実行を実装
+            val jsonObj = JSONObject()
+            jsonObj.put(searchCode, requestKeyInfo[searchCode])
+            val requestBody: RequestBody = RequestBody
+                    .create(JSON,jsonObj.toString())
+
+            val request: Request = Request.Builder()
+                    .addHeader("x-api-key",apiKey)
+                    .url(httpsStr)
+                    .post(requestBody)
+                    .build()
+            Log.d("Http URL", request.url().toString())
+            Log.d("Http Header", request.headers().toString())
+            Log.d("Http Body", request.body().toString())
+
+            val res: Response = client.newCall(request).execute()
             val resBody: ResponseBody = res.body()!!
+            Log.d("Http Response", res.toString())
+            Log.d("Http ResHeader", res.headers().toString())
+            Log.d("Http ResBody", res.body().toString())
             return resBody.string()
         }
     }
