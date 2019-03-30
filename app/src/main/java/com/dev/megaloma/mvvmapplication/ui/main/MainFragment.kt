@@ -26,13 +26,17 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
+    // 選択した場所名を保持
+    private var prefectureName = "東京"
+    private var cityName = "小平市"
+    private val citySpinnerCode = arrayListOf(R.array.tokyo_city_names, R.array.chiba_city_names)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // xmlリソースを利用（ここではmain_fragment
         val view = inflater.inflate(R.layout.main_fragment, container, false)
-        //
         val binding: MainFragmentBinding = MainFragmentBinding.bind(view)
-        //ここから
+        // Activityが生きている間ViewModelを保持する
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         binding.setLifecycleOwner(this)
         binding.viewmodel = viewModel
@@ -60,9 +64,9 @@ class MainFragment : Fragment() {
                         .get("body").asJsonObject.get("Item").asJsonObject
                 Log.d("Json return",json.toString())
                 val kahunDataJson: KahunData = Gson().fromJson(json, KahunData::class.java)
-                viewModel.setName(kahunDataJson.toString())
+                viewModel.setName(kahunDataJson.DATE_TIME)
+                viewModel.setCityName(kahunDataJson.PREFECTURES)
             }
         }
-
     }
 }
