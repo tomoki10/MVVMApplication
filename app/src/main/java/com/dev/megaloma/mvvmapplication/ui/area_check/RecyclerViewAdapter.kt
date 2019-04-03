@@ -25,7 +25,7 @@ class RecyclerViewAdapter(private var dataSet: List<String>) :
         holder.textView.text = text
         holder.linearLayout.id = holder.adapterPosition
         holder.linearLayout.setOnClickListener { view ->
-            listener!!.onClick(view, dataSet.get(holder.adapterPosition)) }
+            listener!!.onClick(view, dataSet[holder.adapterPosition]) }
     }
 
     fun setOnItemClickListener(listener: onItemClickListener) {

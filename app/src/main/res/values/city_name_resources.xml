@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="city_parent">
+        <item>@array/hokkaido_city_names</item>
+        <item>@array/aomori_city_names</item>
+        <item>@array/iwate_city_names</item>
+        <item>@array/tokyo_city_names</item>
+        <item>@array/chiba_city_names</item>
+    </array>
+    <string-array name="hokkaido_city_names">
+        <item>札幌市</item>
+        <item>函館市</item>
+        <item>旭川市</item>
+        <item>十勝市</item>
+    </string-array>
+    <string-array name="aomori_city_names">
+        <item>青森市</item>
+        <item>弘前市</item>
+    </string-array>
+    <string-array name="iwate_city_names">
+        <item>盛岡市</item>
+        <item>大船渡市</item>
+    </string-array>
+    <string-array name="tokyo_city_names">
+        <item>小平市</item>
+        <item>小平市2</item>
+        <item>小平市3</item>
+    </string-array>
+    <string-array name="chiba_city_names">
+        <item>小平市2</item>
+    </string-array>
+</resources>
