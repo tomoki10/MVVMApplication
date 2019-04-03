@@ -54,19 +54,17 @@ class AreaCheckFragment : Fragment() {
 
                 // 都道府県コードに応じた市の配列を返す
                 val items = prefectureList(Integer.parseInt(resources.getString(itemId)))
-                val defaultItem = 0 // デフォルトでチェックされているアイテム
-                val checkedItems: ArrayList<Int> = ArrayList()
-                checkedItems.add(defaultItem)
+
+                // デフォルトでチェックされているアイテム
+                val defaultItem = 0
+                var checkedItem: Int = defaultItem
                 AlertDialog.Builder(context!!)
                         .setTitle("Selector")
                         .setSingleChoiceItems(items, defaultItem) { _, which ->
-                            checkedItems.clear()
-                            checkedItems.add(which)
+                            checkedItem = which
                         }
-                        .setPositiveButton("OK") { _, _ ->
-                            if (!checkedItems.isEmpty()) {
-                                Log.d("checkedItem:", "" + checkedItems.get(0))
-                            }
+                        .setPositiveButton("OK") { _,  _->
+                            Log.d("checkedItem:", "" + items.get(checkedItem))
                         }
                         .setNegativeButton("Cancel", null)
                         .show()
