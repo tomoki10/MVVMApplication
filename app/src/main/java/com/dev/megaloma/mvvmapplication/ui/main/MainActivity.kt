@@ -8,6 +8,8 @@ import com.dev.megaloma.mvvmapplication.ui.area_check.AreaCheckActivity
 
 class MainActivity : AppCompatActivity() {
 
+    private var fragmentCreateflag: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -17,7 +19,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AreaCheckActivity::class.java)
             startActivity(intent)
         }else {
-            if (savedInstanceState == null) {
+            if (savedInstanceState == null && !fragmentCreateflag) {
+                fragmentCreateflag = true
                 supportFragmentManager.beginTransaction()
                         .replace(R.id.container, MainFragment.newInstance())
                         .commitNow()
@@ -25,4 +28,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(!fragmentCreateflag){
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, MainFragment.newInstance())
+                    .commitNow()
+        }
+    }
 }

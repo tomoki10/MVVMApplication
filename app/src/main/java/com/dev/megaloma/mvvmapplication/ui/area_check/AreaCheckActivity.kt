@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.dev.megaloma.mvvmapplication.R
 
-class AreaCheckActivity : AppCompatActivity() {
+class AreaCheckActivity : AppCompatActivity(),AreaCheckFragment.OnFragmentListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,4 +16,12 @@ class AreaCheckActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        finish()
+    }
+
+    override fun onFragmentFinish(){
+        finish()
+    }
 }
