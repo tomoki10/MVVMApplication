@@ -1,7 +1,9 @@
 package com.dev.megaloma.mvvmapplication.ui.main
 
 import android.arch.lifecycle.ViewModel
+import android.databinding.BindingAdapter
 import android.databinding.ObservableField
+import android.widget.ImageView
 
 class MainViewModel : ViewModel() {
     var name: ObservableField<String> = ObservableField()
@@ -12,6 +14,12 @@ class MainViewModel : ViewModel() {
     fun setCityName(cityName :String){
         this.cityName.set(cityName)
     }
+
+    @BindingAdapter("android:src")
+    fun setImageViewResource(imageView: ImageView, res: Int){
+        imageView.setImageResource(res)
+    }
+
 
 //    private var _cityName: MutableLiveData<String> = MutableLiveData()
 //    val cityName: LiveData<String>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MVVMApplication</string>
+    <string name="place_change">計測地変更</string>
+    <string name="main_tab_name1">花粉状況</string>
+    <string name="main_tab_name2">花粉履歴</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

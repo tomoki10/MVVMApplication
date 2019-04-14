@@ -7,5 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTabText</item>
+        <item name="tabSelectedTextColor">@color/black</item>
+    </style>
+
+    <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="white_70percent">#dff</color>
 </resources>
