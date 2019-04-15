@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/appbar_and_tab"
-            android:src="@drawable/droikun"
+            android:src="@drawable/kahun_0"
             android:contentDescription="@string/main_tab_name1" />
 
         <TextView

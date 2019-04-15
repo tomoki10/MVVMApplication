@@ -1,7 +1,9 @@
 package com.dev.megaloma.mvvmapplication.ui.main
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,12 +15,16 @@ import com.dev.megaloma.mvvmapplication.KahunData
 import com.dev.megaloma.mvvmapplication.R
 import com.dev.megaloma.mvvmapplication.databinding.MainFragmentBinding
 import com.dev.megaloma.mvvmapplication.http.SimpleHttp
+import com.dev.megaloma.mvvmapplication.ui.area_check.AreaCheckActivity
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
+
+    //ボタン連打防止
+    private val CLICKABLE_DELAY_TIME = 100L
 
     companion object {
         fun newInstance() = MainFragment()
@@ -40,8 +46,24 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         binding.setLifecycleOwner(this)
         binding.viewmodel = viewModel
-        val btn = view.findViewById<Button>(R.id.button)
-        btn.setOnClickListener {
+
+        // Activityへの遷移　Activityのちに実装
+        val placeBtn = view.findViewById<Button>(R.id.button2)
+        placeBtn.setOnClickListener{
+            //スレッドで多重クリック防止
+            mView ->
+            if (mView == null) return@setOnClickListener
+            mView.isEnabled = false
+            Handler().postDelayed(
+                    { mView.isEnabled = true },
+                    CLICKABLE_DELAY_TIME
+            )
+            val intent = Intent(context, AreaCheckActivity::class.java)
+            startActivity(intent)
+        }
+
+        val apiReqBtn = view.findViewById<Button>(R.id.button)
+        apiReqBtn.setOnClickListener {
 
             //Toast.makeText(context,"Click",Toast.LENGTH_SHORT).show()   //("ViewModel Clicked!!")
 
@@ -67,7 +89,7 @@ class MainFragment : Fragment() {
                 Log.d("KahunHisan",kahunDataJson.KAHUN_HISAN)
                 // 花粉強度に合わせて画像を変更
                 if(kahunDataJson.KAHUN_HISAN.toInt() > 3){
-                    viewModel.setImageViewResource(imageView,R.drawable.droikun_red)
+                    viewModel.setImageViewResource(imageView,R.drawable.kahun_1)
                 }
             }
         }
