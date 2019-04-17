@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val REQ_CODE = 1
     private var mTabsPagerAdapter: TabsPagerAdapter? = null
 
     // onCreateでFragmentが生成されているかのフラグ
@@ -54,9 +55,11 @@ class MainActivity : AppCompatActivity() {
         //　タブレイアウトへの関連付け
         tabLayout.setupWithViewPager(viewPager)
 
-        val prefer = getSharedPreferences("first_check", MODE_PRIVATE)
+        val prefer = getSharedPreferences("DataSave", MODE_PRIVATE)
+        Log.d("MainActivityTest",prefer.getInt("city_code",0).toString())
+
         //初回ログインの場合は、地域選択のActivityに移動
-        if(prefer.getBoolean("first_check",true)){
+        if(prefer.getInt("city_code",0)==0){
             val intent = Intent(this, AreaCheckActivity::class.java)
             startActivity(intent)
         }else {

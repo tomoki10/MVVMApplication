@@ -1,6 +1,7 @@
 package com.dev.megaloma.mvvmapplication.ui.area_check
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.content.res.TypedArray
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,6 +14,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import java.util.*
+
+
 
 
 
@@ -64,10 +67,25 @@ class AreaCheckFragment : Fragment() {
                         }
                         .setPositiveButton("OK") { _,  _->
                             Log.d("checkedItem:", "" + items.get(checkedItem))
+                            //測定値コードの呼び出し 値がない場合は北海道のコードを返す
+                            val city_code=
+                            TransrateCityNameToCityCode().convert(
+                                    items.get(checkedItem)
+                                    ,resources.getStringArray(com.dev.megaloma.mvvmapplication.R.array.city_names)
+                                    ,resources.getIntArray(com.dev.megaloma.mvvmapplication.R.array.city_code).toTypedArray()
+                            ) ?: resources.getIntArray(com.dev.megaloma.mvvmapplication.R.array.city_code)[0]
+
+                            val data = context!!.getSharedPreferences("DataSave", Context.MODE_PRIVATE)
+                            val editor = data.edit()
+                            editor.putInt("city_code", city_code)
+                            editor.apply()
+                            Log.d("res",resources.getIntArray(com.dev.megaloma.mvvmapplication.R.array.city_code)[1].toString())
+                            Log.d("city_code put",city_code.toString())
+
                             Optional.ofNullable(activity)
                                     .filter { activity -> activity is OnFragmentListener }
                                     .map { activity -> activity as OnFragmentListener }
-                                    .orElseThrow { IllegalStateException("ActivityにOnHogeListenerを実装してください") }
+                                    .orElseThrow { IllegalStateException("ActivityにOnFragmentListenerを実装してください") }
                                     .onFragmentFinish()
                         }
                         .setNegativeButton("Cancel", null)

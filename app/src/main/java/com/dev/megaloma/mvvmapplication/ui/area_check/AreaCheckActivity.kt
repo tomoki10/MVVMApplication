@@ -16,11 +16,6 @@ class AreaCheckActivity : AppCompatActivity(),AreaCheckFragment.OnFragmentListen
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        finish()
-    }
-
     override fun onFragmentFinish(){
         finish()
     }

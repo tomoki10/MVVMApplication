@@ -29,4 +29,17 @@
     <string-array name="chiba_city_names">
         <item>小平市2</item>
     </string-array>
+
+    <string-array name="city_names">
+        <item>札幌市</item>
+        <item>函館市</item>
+        <item>旭川市</item>
+        <item>十勝市</item>
+    </string-array>
+    <integer-array name="city_code">
+        <item>50110100</item>
+        <item>50110200</item>
+        <item>50120100</item>
+        <item>50120200</item>
+    </integer-array>
 </resources>
