@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import com.dev.megaloma.mvvmapplication.KahunData
 import com.dev.megaloma.mvvmapplication.R
@@ -48,8 +47,7 @@ class MainFragment : Fragment() {
         binding.viewmodel = viewModel
 
         // Activityへの遷移　Activityのちに実装
-        val placeBtn = view.findViewById<Button>(R.id.button2)
-        placeBtn.setOnClickListener{
+        binding.placeChangeBtn.setOnClickListener{
             //スレッドで多重クリック防止
             mView ->
             if (mView == null) return@setOnClickListener
@@ -62,8 +60,7 @@ class MainFragment : Fragment() {
             startActivity(intent)
         }
 
-        val apiReqBtn = view.findViewById<Button>(R.id.button)
-        apiReqBtn.setOnClickListener {
+        binding.apiReqBtn.setOnClickListener {
 
             //Toast.makeText(context,"Click",Toast.LENGTH_SHORT).show()   //("ViewModel Clicked!!")
 
@@ -98,7 +95,4 @@ class MainFragment : Fragment() {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
 }

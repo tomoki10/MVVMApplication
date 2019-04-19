@@ -42,13 +42,13 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/api_req_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/place_change_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/place_change" />
