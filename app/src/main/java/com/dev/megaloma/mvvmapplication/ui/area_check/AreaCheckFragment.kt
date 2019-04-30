@@ -8,21 +8,16 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.dev.megaloma.mvvmapplication.databinding.AreaCheckFragmentBinding
 import java.util.*
-
-
-
-
 
 class AreaCheckFragment : Fragment() {
 
-    var mView: View? = null
-    var mRecyclerView: RecyclerView? = null
+    private lateinit var mView: View
 
     companion object {
         fun newInstance() = AreaCheckFragment()
@@ -33,17 +28,28 @@ class AreaCheckFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         mView = inflater.inflate(com.dev.megaloma.mvvmapplication.R.layout.area_check_fragment, container, false)
-        // RecyclerViewの参照を取得
-        mRecyclerView = mView!!.findViewById(com.dev.megaloma.mvvmapplication.R.id.recycler_view)
-        // レイアウトマネージャを設定(ここで縦方向の標準リストであることを指定)
-        mRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        //境界線の描画
-        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        mRecyclerView!!.addItemDecoration(dividerItemDecoration)
 
+        val binding: AreaCheckFragmentBinding = AreaCheckFragmentBinding.bind(mView)
+        // レイアウトマネージャを設定(ここで縦方向の標準リストであることを指定)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
         // Adapterの設定
         val recyclerViewAdapter =  RecyclerViewAdapter(convertArrayToList(com.dev.megaloma.mvvmapplication.R.array.prefecture_names))
-        mRecyclerView!!.adapter = recyclerViewAdapter
+        binding.recyclerView.adapter = recyclerViewAdapter
+        //境界線の描画
+        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
+        
+        // RecyclerViewの参照を取得
+        //mRecyclerView = mView!!.findViewById(com.dev.megaloma.mvvmapplication.R.id.recycler_view)
+        // レイアウトマネージャを設定(ここで縦方向の標準リストであることを指定)
+        //mRecyclerView!!.layoutManager = LinearLayoutManager(context)
+        //境界線の描画
+//        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+//        mRecyclerView!!.addItemDecoration(dividerItemDecoration)
+
+        // Adapterの設定
+//        val recyclerViewAdapter =  RecyclerViewAdapter(convertArrayToList(com.dev.megaloma.mvvmapplication.R.array.prefecture_names))
+//        mRecyclerView!!.adapter = recyclerViewAdapter
 
         recyclerViewAdapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
             override fun onClick(view: View, name: String) {
@@ -92,7 +98,7 @@ class AreaCheckFragment : Fragment() {
                         .show()
             }
         })
-        return mView!!
+        return mView
     }
 
    interface OnFragmentListener{
