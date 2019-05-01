@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication.http
+package com.dev.megaloma.mvvmapplication.source
 
 import android.util.Log
 import okhttp3.*
@@ -9,7 +9,14 @@ class SimpleHttp{
         private const val searchCode = "SOKUTEI_KYOKU_CODE"
         private val JSON = MediaType.parse("application/json;charset=utf-8")
 
-        // 引数のURLでHTTPリクエストを実行し、レスポンスを返す
+        /*
+         * 引数のURLでHTTPリクエストを実行し、レスポンスを返す
+         * @httpsStr アクセスしたいAPIのURL
+         * @apiKey アクセスしたいAPIのKey
+         * @requestKeyInfo <取得したい属性名、取得したい値>
+         *
+         * @return サーバから取得したBodyを返却
+         */
         fun doSimpleHttp(httpsStr: String, apiKey: String,
                          requestKeyInfo: Map<String,String>): String {
             val client = OkHttpClient()
