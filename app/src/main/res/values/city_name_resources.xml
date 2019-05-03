@@ -4,8 +4,17 @@
         <item>@array/hokkaido_city_names</item>
         <item>@array/aomori_city_names</item>
         <item>@array/iwate_city_names</item>
-        <item>@array/tokyo_city_names</item>
+        <item>@array/miyagi_city_names</item>
+        <item>@array/akita_city_names</item>
+        <item>@array/yamagata_city_names</item>
+        <item>@array/fukushima_city_names</item>
+        <item>@array/ibaraki_city_names</item>
+        <item>@array/tochigi_city_names</item>
+        <item>@array/gunma_city_names</item>
+        <item>@array/saitama_city_names</item>
         <item>@array/chiba_city_names</item>
+        <item>@array/tokyo_city_names</item>
+        <item>@array/kanagawa_city_names</item>
     </array>
     <string-array name="hokkaido_city_names">
         <item>札幌市</item>
@@ -21,25 +30,138 @@
         <item>盛岡市</item>
         <item>大船渡市</item>
     </string-array>
-    <string-array name="tokyo_city_names">
-        <item>小平市</item>
-        <item>小平市2</item>
-        <item>小平市3</item>
+    <string-array name="miyagi_city_names">
+        <item>仙台市</item>
+        <item>石巻市</item>
+    </string-array>
+    <string-array name="akita_city_names">
+        <item>秋田市</item>
+        <item>横手市</item>
+    </string-array>
+    <string-array name="yamagata_city_names">
+        <item>山形市</item>
+        <item>米沢市</item>
+        <item>東田川郡</item>
+    </string-array>
+    <string-array name="fukushima_city_names">
+        <item>福島市</item>
+        <item>いわき市</item>
+    </string-array>
+
+    <string-array name="ibaraki_city_names">
+        <item>水戸市</item>
+        <item>つくば市</item>
+        <item>日立市</item>
+    </string-array>
+    <string-array name="tochigi_city_names">
+        <item>宇都宮市(中央)</item>
+        <item>宇都宮市(北)</item>
+        <item>日光市</item>
+    </string-array>
+
+    <string-array name="gunma_city_names">
+        <item>前橋市</item>
+        <item>館林市</item>
+    </string-array>
+    <string-array name="saitama_city_names">
+        <item>さいたま市</item>
+        <item>熊谷市</item>
+        <item>飯能市</item>
     </string-array>
     <string-array name="chiba_city_names">
-        <item>小平市2</item>
+        <item>船橋市</item>
+        <item>市原市</item>
+        <item>成田市</item>
+        <item>君津市</item>
     </string-array>
+
+    <string-array name="tokyo_city_names">
+        <item>小平市</item>
+        <item>新宿区</item>
+    </string-array>
+    <string-array name="kanagawa_city_names">
+        <item>横浜市</item>
+        <item>川崎市</item>
+        <item>平塚市</item>
+    </string-array>
+
 
     <string-array name="city_names">
         <item>札幌市</item>
         <item>函館市</item>
         <item>旭川市</item>
         <item>十勝市</item>
+        <item>青森市</item>
+        <item>弘前市</item>
+        <item>盛岡市</item>
+        <item>大船渡市</item>
+        <item>仙台市</item>
+        <item>石巻市</item>
+        <item>秋田市</item>
+        <item>横手市</item>
+        <item>山形市</item>
+        <item>米沢市</item>
+        <item>東田川郡</item>
+        <item>福島市</item>
+        <item>いわき市</item>
+        <item>水戸市</item>
+        <item>つくば市</item>
+        <item>日立市</item>
+        <item>宇都宮市(中央)</item>
+        <item>宇都宮市(北)</item>
+        <item>日光市</item>
+        <item>前橋市</item>
+        <item>館林市</item>
+        <item>さいたま市</item>
+        <item>熊谷市</item>
+        <item>飯能市</item>
+        <item>船橋市</item>
+        <item>市原市</item>
+        <item>成田市</item>
+        <item>君津市</item>
+        <item>小平市</item>
+        <item>新宿区</item>
+        <item>横浜市</item>
+        <item>川崎市</item>
+        <item>平塚市</item>
     </string-array>
     <integer-array name="city_code">
         <item>50110100</item>
         <item>50110200</item>
         <item>50120100</item>
         <item>50120200</item>
+        <item>50210100</item>
+        <item>50220100</item>
+        <item>50310100</item>
+        <item>50320100</item>
+        <item>50410100</item>
+        <item>50410200</item>
+        <item>50510100</item>
+        <item>50520100</item>
+        <item>50610100</item>
+        <item>50610200</item>
+        <item>50620100</item>
+        <item>50710100</item>
+        <item>50720100</item>
+        <item>50810100</item>
+        <item>50810200</item>
+        <item>50820100</item>
+        <item>50910100</item>
+        <item>50920100</item>
+        <item>50920200</item>
+        <item>51010100</item>
+        <item>51020100</item>
+        <item>51110200</item>
+        <item>51120300</item>
+        <item>51120400</item>
+        <item>51210100</item>
+        <item>51210200</item>
+        <item>51220100</item>
+        <item>51220200</item>
+        <item>51310200</item>
+        <item>51320100</item>
+        <item>51410100</item>
+        <item>51410200</item>
+        <item>51420100</item>
     </integer-array>
 </resources>
