@@ -38,7 +38,7 @@ class AreaCheckFragment : Fragment() {
         // レイアウトマネージャを設定(ここで縦方向の標準リストであることを指定)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         // Adapterの設定
-        val recyclerViewAdapter =  RecyclerViewAdapter(convertArrayToList(com.dev.megaloma.mvvmapplication.R.array.prefecture_names))
+        val recyclerViewAdapter =  RecyclerViewAdapter(convertArrayToList(R.array.prefecture_names))
         binding.recyclerView.adapter = recyclerViewAdapter
         //境界線の描画
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
@@ -106,7 +106,7 @@ class AreaCheckFragment : Fragment() {
     }
 
     private fun prefectureList(prefectureIndex: Int):Array<String>{
-        val typedArray: TypedArray = resources.obtainTypedArray(com.dev.megaloma.mvvmapplication.R.array.city_parent)
+        val typedArray: TypedArray = resources.obtainTypedArray(R.array.city_parent)
         val result = resources.getStringArray(typedArray.getResourceId(prefectureIndex-1,0))
         typedArray.recycle()
         return result

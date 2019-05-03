@@ -12,49 +12,15 @@ import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val REQ_CODE = 1
     private var mTabsPagerAdapter: TabsPagerAdapter? = null
-
-    // onCreateでFragmentが生成されているかのフラグ
-    private var fragmentCreateflag: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+    }
 
-        val tabsFragments = arrayListOf(
-                MainFragment::class.java,
-                StatFragment::class.java
-        )
-
-        //ViewPagerに既存のFragmentを関連づける
-
-        //Adapterの生成
-        val setTabName = arrayListOf(getString(R.string.main_tab_name1),
-                getString(R.string.main_tab_name2))
-        mTabsPagerAdapter = TabsPagerAdapter(supportFragmentManager, tabsFragments, setTabName)
-
-        // ViewPagerにAdapterを設定
-        viewPager.adapter = mTabsPagerAdapter
-        viewPager.offscreenPageLimit = 2
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                when (position) {
-                    0 -> Log.d("ViewPager1","1")
-                    1 -> Log.d("ViewPager1","2")
-                }
-            }
-        })
-        //　タブレイアウトへの関連付け
-        tabLayout.setupWithViewPager(viewPager)
-
+    override fun onResume() {
+        super.onResume()
         val prefer = getSharedPreferences("DataSave", MODE_PRIVATE)
         Log.d("MainActivityTest",prefer.getInt("city_code",0).toString())
 
@@ -62,15 +28,41 @@ class MainActivity : AppCompatActivity() {
         if(prefer.getInt("city_code",0)==0){
             val intent = Intent(this, AreaCheckActivity::class.java)
             startActivity(intent)
-        }else {
-            if (savedInstanceState == null && !fragmentCreateflag) {
-                fragmentCreateflag = true
-            }
         }
-    }
+        else {
+            val tabsFragments = arrayListOf(
+                    MainFragment::class.java,
+                    StatFragment::class.java
+            )
 
-    override fun onResume() {
-        super.onResume()
+            //ViewPagerに既存のFragmentを関連づける
+
+            //Adapterの生成
+            val setTabName = arrayListOf(getString(R.string.main_tab_name1),
+                    getString(R.string.main_tab_name2))
+            mTabsPagerAdapter = TabsPagerAdapter(supportFragmentManager, tabsFragments, setTabName)
+
+            // ViewPagerにAdapterを設定
+            viewPager.adapter = mTabsPagerAdapter
+            viewPager.offscreenPageLimit = 2
+            viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+
+                override fun onPageScrollStateChanged(state: Int) {
+                }
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    when (position) {
+                        0 -> Log.d("ViewPager1","1")
+                        1 -> Log.d("ViewPager1","2")
+                    }
+                }
+            })
+            //　タブレイアウトへの関連付け
+            tabLayout.setupWithViewPager(viewPager)
+        }
     }
 
     override fun onDestroy() {

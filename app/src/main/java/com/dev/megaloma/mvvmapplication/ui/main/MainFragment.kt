@@ -33,11 +33,6 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
-    // 選択した場所名を保持
-    private var prefectureName = "東京"
-    private var cityName = "小平市"
-    private val citySpinnerCode = arrayListOf(R.array.tokyo_city_names, R.array.chiba_city_names)
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // xmlリソースを利用（ここではmain_fragment
@@ -68,7 +63,10 @@ class MainFragment : Fragment() {
         binding.apiReqBtn.setOnClickListener {
             setKahunIfo(prefer.toString(), view)
         }
-        setKahunIfo(prefer.toString(),view)
+        //初期値の場合は、起動しない
+        if(0 != prefer){
+            setKahunIfo(prefer.toString(),view)
+        }
         setHasOptionsMenu(true)
         return view
     }
@@ -86,11 +84,14 @@ class MainFragment : Fragment() {
         //cityCode = "50810100"
         requestKeyInfo["SOKUTEI_KYOKU_CODE"] = cityCode
         requestKeyInfo["DATE_TIME"] = AccessTimeUtils.getRequestDateTime(Calendar.getInstance(Locale.JAPAN))
+        Log.d("SOKUTEI_KYOKU_CODE",requestKeyInfo["SOKUTEI_KYOKU_CODE"])
+        Log.d("DATE_TIME",requestKeyInfo["DATE_TIME"])
 
         GlobalScope.launch {
             // Httpレスポンスの受け取り
             val response: String = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
             //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
+            Log.d("response",response)
             val json: JsonObject = Gson().fromJson(response, JsonObject::class.java)
                     .get("body").asJsonObject.get("Item").asJsonObject
             Log.d("Json return",json.toString())
@@ -99,7 +100,6 @@ class MainFragment : Fragment() {
             viewModel.setCityName(kahunDataJson.PREFECTURES)
 
             //画像変更 のちにfindByIdを使わない方法に変更
-
             val imageView: ImageView = view.findViewById(R.id.kahun_image)
             Log.d("KahunHisan",kahunDataJson.KAHUN_HISAN)
             // 花粉強度に合わせて画像を変更

@@ -7,6 +7,7 @@ import org.json.JSONObject
 class SimpleHttp{
     companion object SimpleHttp{
         private const val searchCode = "SOKUTEI_KYOKU_CODE"
+        private const val dateTime = "DATE_TIME"
         private val JSON = MediaType.parse("application/json;charset=utf-8")
 
         /*
@@ -23,6 +24,8 @@ class SimpleHttp{
             //POSTメソッドの実行を実装
             val jsonObj = JSONObject()
             jsonObj.put(searchCode, requestKeyInfo[searchCode])
+            jsonObj.put(dateTime, requestKeyInfo[dateTime])
+            Log.d("Test JsonObj", jsonObj.toString())
             val requestBody: RequestBody = RequestBody
                     .create(JSON,jsonObj.toString())
 
