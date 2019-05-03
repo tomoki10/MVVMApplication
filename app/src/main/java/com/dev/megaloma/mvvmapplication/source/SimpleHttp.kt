@@ -8,6 +8,10 @@ class SimpleHttp{
     companion object SimpleHttp{
         private const val searchCode = "SOKUTEI_KYOKU_CODE"
         private const val dateTime = "DATE_TIME"
+
+        //単体結果取得か複数結果取得か判別するフラグ
+        private const val singleMultipleFlag = "SINGLE_MULTIPLE_FLAG"
+
         private val JSON = MediaType.parse("application/json;charset=utf-8")
 
         /*
@@ -25,6 +29,7 @@ class SimpleHttp{
             val jsonObj = JSONObject()
             jsonObj.put(searchCode, requestKeyInfo[searchCode])
             jsonObj.put(dateTime, requestKeyInfo[dateTime])
+            jsonObj.put(singleMultipleFlag, requestKeyInfo[singleMultipleFlag])
             Log.d("Test JsonObj", jsonObj.toString())
             val requestBody: RequestBody = RequestBody
                     .create(JSON,jsonObj.toString())

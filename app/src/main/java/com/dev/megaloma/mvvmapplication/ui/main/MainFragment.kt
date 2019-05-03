@@ -84,6 +84,8 @@ class MainFragment : Fragment() {
         //cityCode = "50810100"
         requestKeyInfo["SOKUTEI_KYOKU_CODE"] = cityCode
         requestKeyInfo["DATE_TIME"] = AccessTimeUtils.getRequestDateTime(Calendar.getInstance(Locale.JAPAN))
+        requestKeyInfo["SINGLE_MULTIPLE_FLAG"] = "0"
+
         Log.d("SOKUTEI_KYOKU_CODE",requestKeyInfo["SOKUTEI_KYOKU_CODE"])
         Log.d("DATE_TIME",requestKeyInfo["DATE_TIME"])
 
