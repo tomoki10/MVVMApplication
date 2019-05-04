@@ -21,4 +21,8 @@ class TabsPagerAdapter(fm: FragmentManager,
     override fun getPageTitle(position: Int): CharSequence? {
         return tabTitles[position]
     }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return POSITION_NONE
+    }
 }
