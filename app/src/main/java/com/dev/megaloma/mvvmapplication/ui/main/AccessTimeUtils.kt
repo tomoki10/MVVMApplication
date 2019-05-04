@@ -25,7 +25,7 @@ class AccessTimeUtils{
                 calendar.add(Calendar.DAY_OF_MONTH, -1)
                 //calendar.time呼び出しでは減算が更新されないためgetで呼び出す
                 simpleDateFormatYM.format(calendar.time) +
-                        calendar.get(Calendar.DATE).toString() + "24"
+                        simpleDateFormatD.format(calendar.time) + "24"
             }else{
                 simpleDateFormatYM.format(calendar.time) +
                         simpleDateFormatD.format(calendar.time) +

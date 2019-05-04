@@ -27,7 +27,7 @@ class MethodUnitTest {
     fun method_TimeUtils_getRequestDateTime(){
         val calendar = Calendar.getInstance(Locale.JAPAN)
 
-        //通常呼び出しの確認
+        //通常呼び出しの確認(日跨ぎ時エラー)
         val sdf = SimpleDateFormat("yyyyMMddHH",Locale.JAPAN)
         val tmpCalendar = Calendar.getInstance(Locale.JAPAN)
         tmpCalendar.add(Calendar.HOUR, -1)
