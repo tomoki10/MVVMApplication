@@ -23,6 +23,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
 
@@ -61,85 +62,85 @@ class StatFragment : Fragment() {
         //現在設定中の地域を取得(デフォルトは東京設定)
         val prefer = activity!!.getSharedPreferences("DataSave", AppCompatActivity.MODE_PRIVATE)
                 .getInt("city_code",51320100)
-        setChartData(prefer.toString(), chart)
+        runBlocking {
+            GlobalScope.launch {
+                setChartData(prefer.toString(), chart)
+            }.join()
+        }
         return view
     }
 
     private fun setChartData(cityCode:String, chart: BarChart){
 
         //当日分の花粉データ取得
-        GlobalScope.launch {
+        val kahunApiUrl = getString(R.string.aws_lambda_url)
+        val apiKey  = getString(R.string.aws_api_key)
+        // 問い合わせ方法によって最後に調整
+        val requestKeyInfo = HashMap<String,String>()
+        requestKeyInfo["SOKUTEI_KYOKU_CODE"] = cityCode
+        requestKeyInfo["DATE_TIME"] = AccessTimeUtils
+                .getRequestDateTime(Calendar.getInstance(Locale.JAPAN))
+        // 複数取得
+        requestKeyInfo["SINGLE_MULTIPLE_FLAG"] = "1"
 
-            val kahunApiUrl = getString(R.string.aws_lambda_url)
-            val apiKey  = getString(R.string.aws_api_key)
-            // 問い合わせ方法によって最後に調整
-            val requestKeyInfo = HashMap<String,String>()
-            requestKeyInfo["SOKUTEI_KYOKU_CODE"] = cityCode
-            requestKeyInfo["DATE_TIME"] = AccessTimeUtils
-                    .getRequestDateTime(Calendar.getInstance(Locale.JAPAN))
-            // 複数取得
-            requestKeyInfo["SINGLE_MULTIPLE_FLAG"] = "1"
+        // Httpレスポンスの受け取り
+        val response: String = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
+        //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
+        Log.d("bar response",response)
+        val jsonElement: JsonElement = Gson().fromJson(response, JsonObject::class.java)
+                .get("body").asJsonObject.get("Items")
+        Log.d("JsonObj",jsonElement.toString())
 
-            // Httpレスポンスの受け取り
-            val response: String = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
-            //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
-            Log.d("bar response",response)
-            val jsonElement: JsonElement = Gson().fromJson(response, JsonObject::class.java)
-                    .get("body").asJsonObject.get("Items")
-            Log.d("JsonObj",jsonElement.toString())
+        val kahunJsonArray = jsonElement.asJsonArray
 
-            val kahunJsonArray = jsonElement.asJsonArray
+        //Y軸(左)
+        val left = chart.axisLeft
+        left.axisMinimum = 0f
+        left.axisMaximum = 50f
+        left.labelCount = Hour
+        left.setDrawTopYLabelEntry(true)
 
-            //Y軸(左)
-            val left = chart.axisLeft
-            left.axisMinimum = 0f
-            left.axisMaximum = 50f
-            left.labelCount = Hour
-            left.setDrawTopYLabelEntry(true)
+        //Y軸(右)
+        val right = chart.axisRight
+        right.setDrawLabels(false)
+        right.setDrawGridLines(false)
+        right.setDrawZeroLine(true)
+        right.setDrawTopYLabelEntry(true)
 
-            //Y軸(右)
-            val right = chart.axisRight
-            right.setDrawLabels(false)
-            right.setDrawGridLines(false)
-            right.setDrawZeroLine(true)
-            right.setDrawTopYLabelEntry(true)
-
-            //X軸
-            val xAxis = chart.xAxis
-            //X軸に表示するLabelのリスト(最初の""は原点の位置)
-            val labels= arrayOfNulls<String>(25)
-            for (labelNum in 0 .. Hour){
-                labels[labelNum] = (labelNum+1).toString()
-            }
-
-            val kahunBarData = Array(Hour) { 0.toString()}
-            for((index, value) in kahunJsonArray.withIndex()) {
-                kahunBarData[index] = Gson().fromJson(value, KahunData::class.java).KAHUN_HISAN
-            }
-
-            xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-
-            val bottomAxis = chart.xAxis
-            bottomAxis.position = XAxis.XAxisPosition.BOTTOM
-            bottomAxis.setDrawLabels(true)
-            bottomAxis.setDrawGridLines(false)
-            bottomAxis.setDrawAxisLine(true)
-
-            //グラフ上の表示
-            chart.setDrawValueAboveBar(true)
-            chart.description.isEnabled = false
-            chart.isClickable = false
-
-            //凡例
-            chart.legend.isEnabled = false
-            chart.setScaleEnabled(false)
-
-            //表示データ取得
-            val data = BarData(getBarData(kahunBarData))
-            Log.d("BarData",data.toString())
-            chart.data = data
-            //viewModel.setBarChart(chart)
+        //X軸
+        val xAxis = chart.xAxis
+        //X軸に表示するLabelのリスト(最初の""は原点の位置)
+        val labels= arrayOfNulls<String>(25)
+        for (labelNum in 0 .. Hour){
+            labels[labelNum] = (labelNum+1).toString()
         }
+
+        val kahunBarData = Array(Hour) { 0.toString()}
+        for((index, value) in kahunJsonArray.withIndex()) {
+            kahunBarData[index] = Gson().fromJson(value, KahunData::class.java).KAHUN_HISAN
+        }
+
+        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+
+        val bottomAxis = chart.xAxis
+        bottomAxis.position = XAxis.XAxisPosition.BOTTOM
+        bottomAxis.setDrawLabels(true)
+        bottomAxis.setDrawGridLines(false)
+        bottomAxis.setDrawAxisLine(true)
+
+        //グラフ上の表示
+        chart.setDrawValueAboveBar(true)
+        chart.description.isEnabled = false
+        chart.isClickable = false
+
+        //凡例
+        chart.legend.isEnabled = false
+        chart.setScaleEnabled(false)
+
+        //表示データ取得
+        val data = BarData(getBarData(kahunBarData))
+        Log.d("BarData",data.toString())
+        chart.data = data
     }
 
     //棒グラフのデータを取得
