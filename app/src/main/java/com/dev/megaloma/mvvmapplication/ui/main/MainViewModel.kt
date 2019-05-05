@@ -8,16 +8,29 @@ import android.widget.ImageView
 
 class MainViewModel : ViewModel() {
 
-    private var mName: MutableLiveData<String> = MutableLiveData()
-    var name: LiveData<String> = mName
-    fun setName(name :String){
-        mName.postValue(name)
+    private var mKahunRyouText: MutableLiveData<String> = MutableLiveData()
+    var kahunRyouText: LiveData<String> = mKahunRyouText
+    fun setKahunRyouText(kahunRyouText :String){
+        mKahunRyouText.postValue(kahunRyouText)
     }
 
-    private var mCityName: MutableLiveData<String> = MutableLiveData()
-    var cityName: LiveData<String> = mCityName
-    fun setCityName(cityName :String){
-        mCityName.postValue(cityName)
+
+    private var mDate: MutableLiveData<String> = MutableLiveData()
+    var date: LiveData<String> = mDate
+    fun setDate(date :String){
+        mDate.postValue(date)
+    }
+
+    private var mPrefectureAndCity: MutableLiveData<String> = MutableLiveData()
+    var prefectureAndCityName: LiveData<String> = mPrefectureAndCity
+    fun setPrefectureAndCityNameName(prefectureAndCityName :String){
+        mPrefectureAndCity.postValue(prefectureAndCityName)
+    }
+
+    private var mKahunHisanData: MutableLiveData<String> = MutableLiveData()
+    var kahunHisanData: LiveData<String> = mKahunHisanData
+    fun setKahunHisanData(kahunHisanData :String){
+        mKahunHisanData.postValue(kahunHisanData)
     }
 
     @BindingAdapter("android:src")

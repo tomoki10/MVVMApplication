@@ -96,7 +96,7 @@ class StatFragment : Fragment() {
         //Y軸(左)
         val left = chart.axisLeft
         left.axisMinimum = 0f
-        left.axisMaximum = 50f
+        left.axisMaximum = 500f
         left.labelCount = Hour
         left.setDrawTopYLabelEntry(true)
 

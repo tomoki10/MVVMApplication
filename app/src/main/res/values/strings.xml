@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MVVMApplication</string>
+    <string name="app_name">花粉情報リスト</string>
     <string name="place_change">計測地変更</string>
     <string name="main_tab_name1">花粉状況</string>
     <string name="main_tab_name2">花粉履歴</string>

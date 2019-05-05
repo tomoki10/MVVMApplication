@@ -60,9 +60,6 @@ class MainFragment : Fragment() {
         val prefer = activity!!.getSharedPreferences("DataSave", AppCompatActivity.MODE_PRIVATE)
                 .getInt("city_code",0)
 
-        binding.apiReqBtn.setOnClickListener {
-            setKahunIfo(prefer.toString(), view)
-        }
         //初期値の場合は、起動しない
         if(0 != prefer){
             setKahunIfo(prefer.toString(),view)
@@ -98,17 +95,42 @@ class MainFragment : Fragment() {
                     .get("body").asJsonObject.get("Item").asJsonObject
             Log.d("Json return",json.toString())
             val kahunDataJson: KahunData = Gson().fromJson(json, KahunData::class.java)
-            viewModel.setName(kahunDataJson.DATE_TIME)
-            viewModel.setCityName(kahunDataJson.PREFECTURES)
+
+            //年月日の表示を加工
+            val date = kahunDataJson.DATE_TIME.substring(0,4) + "年" +
+                    kahunDataJson.DATE_TIME.substring(4,6) + "月" +
+                    kahunDataJson.DATE_TIME.substring(6,8) + "日" +
+                    kahunDataJson.DATE_TIME.substring(8,10) + "時"
+            viewModel.setDate("日付：$date")
+            viewModel.setPrefectureAndCityNameName("場所："+kahunDataJson.PREFECTURES
+                    +kahunDataJson.CITY)
+            viewModel.setKahunHisanData("花粉飛散数：${kahunDataJson.KAHUN_HISAN} 個/m3")
 
             //画像変更 のちにfindByIdを使わない方法に変更
             val imageView: ImageView = view.findViewById(R.id.kahun_image)
             Log.d("KahunHisan",kahunDataJson.KAHUN_HISAN)
             // 花粉強度に合わせて画像を変更
-            if(kahunDataJson.KAHUN_HISAN.toInt() > 3){
-                viewModel.setImageViewResource(imageView,R.drawable.kahun_1)
-            }else{
-                viewModel.setImageViewResource(imageView,R.drawable.kahun_0)
+            when {
+                kahunDataJson.KAHUN_HISAN.toInt() >= 1000 ->{
+                    viewModel.setKahunRyouText("花粉量：非常に多い")
+                    viewModel.setImageViewResource(imageView,R.drawable.kahun_4)
+                }
+                kahunDataJson.KAHUN_HISAN.toInt() >= 500 -> {
+                    viewModel.setKahunRyouText("花粉量：かなり多い")
+                    viewModel.setImageViewResource(imageView, R.drawable.kahun_3)
+                }
+                kahunDataJson.KAHUN_HISAN.toInt() >= 100 -> {
+                    viewModel.setKahunRyouText("花粉量：多い")
+                    viewModel.setImageViewResource(imageView, R.drawable.kahun_2)
+                }
+                kahunDataJson.KAHUN_HISAN.toInt() >= 50 ->{
+                    viewModel.setKahunRyouText("花粉量：少し多い")
+                    viewModel.setImageViewResource(imageView,R.drawable.kahun_1)
+                }
+                else -> {
+                    viewModel.setKahunRyouText("花粉量：少し")
+                    viewModel.setImageViewResource(imageView,R.drawable.kahun_0)
+                }
             }
         }
     }
