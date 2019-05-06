@@ -19,7 +19,7 @@
             android:id="@+id/kahun_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/appbar_and_tab"
+            android:layout_marginTop="15sp"
             android:src="@drawable/kahun_0"
             android:contentDescription="@string/main_tab_name1" />
 
@@ -28,26 +28,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewmodel.kahunRyouText}"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/message1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewmodel.date}"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
         <TextView
             android:id="@+id/message2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewmodel.prefectureAndCityName}"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
         <TextView
             android:id="@+id/message3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewmodel.kahunHisanData}"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/message4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewmodel.temperature}"
+            android:textSize="15sp" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -58,6 +64,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/fab_margin"
                 android:layout_gravity="end"
+                android:textSize="20sp"
                 android:text="@string/place_change" />
         </FrameLayout>
     </LinearLayout>

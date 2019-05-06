@@ -13,12 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.main.StatFragment">
+        <TextView
+            android:id="@+id/stat_title_text"
+            android:text="@string/no_data"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40sp"/>
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart1"
             android:text="@string/ClickMe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="48sp"
+            android:layout_marginTop="64sp"
             />
     </FrameLayout>
 </layout>

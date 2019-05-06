@@ -5,4 +5,9 @@
     <string name="main_tab_name2">花粉履歴</string>
     <string name="hello_blank_fragment">blank fragment</string>
     <string name="ClickMe">Please Click This Page</string>
+    <string name="no_data">No Data</string>
+    <string name="stat_title">%1$s%2$s %3$s年%4$s月%5$s日のデータ</string>
+    <string name="oss_resource">OSS利用元</string>
+    <string name="kahun_data_resource">花粉情報利用元</string>
+    <string name="resource_text">花粉データの出典: \n 環境省花粉観測システム\n http://kafun.taiki.go.jp/index.aspx</string>
 </resources>

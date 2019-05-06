@@ -15,6 +15,37 @@
         <item>@array/chiba_city_names</item>
         <item>@array/tokyo_city_names</item>
         <item>@array/kanagawa_city_names</item>
+        <item>@array/niigata_city_names</item>
+        <item>@array/toyama_city_names</item>
+        <item>@array/ishikawa_city_names</item>
+        <item>@array/fukui_city_names</item>
+        <item>@array/yamanashi_city_names</item>
+        <item>@array/nagano_city_names</item>
+        <item>@array/gifu_city_names</item>
+        <item>@array/shizuoka_city_names</item>
+        <item>@array/aichi_city_names</item>
+        <item>@array/shiga_city_names</item>
+        <item>@array/kyoto_city_names</item>
+        <item>@array/osaka_city_names</item>
+        <item>@array/hyogo_city_names</item>
+        <item>@array/nara_city_names</item>
+        <item>@array/wakayama_city_names</item>
+        <item>@array/okayama_city_names</item>
+        <item>@array/tottori_city_names</item>
+        <item>@array/shimane_city_names</item>
+        <item>@array/hiroshima_city_names</item>
+        <item>@array/yamagushi_city_names</item>
+        <item>@array/tokushima_city_names</item>
+        <item>@array/kagawa_city_names</item>
+        <item>@array/ehime_city_names</item>
+        <item>@array/kouchi_city_names</item>
+        <item>@array/fukuoka_city_names</item>
+        <item>@array/saga_city_names</item>
+        <item>@array/nagasaki_city_names</item>
+        <item>@array/kumamoto_city_names</item>
+        <item>@array/oita_city_names</item>
+        <item>@array/miyazaki_city_names</item>
+        <item>@array/kagoshima_city_names</item>
     </array>
     <string-array name="hokkaido_city_names">
         <item>札幌市</item>
@@ -74,7 +105,6 @@
         <item>成田市</item>
         <item>君津市</item>
     </string-array>
-
     <string-array name="tokyo_city_names">
         <item>小平市</item>
         <item>新宿区</item>
@@ -84,7 +114,153 @@
         <item>川崎市</item>
         <item>平塚市</item>
     </string-array>
-
+    <string-array name="niigata_city_names">
+        <item>新潟市西区</item>
+        <item>長岡市</item>
+        <item>上越市</item>
+    </string-array>
+    <string-array name="toyama_city_names">
+        <item>新潟市西区</item>
+        <item>長岡市</item>
+        <item>上越市</item>
+    </string-array>
+    <string-array name="ishikawa_city_names">
+        <item>金沢市</item>
+        <item>七尾市</item>
+    </string-array>
+    <string-array name="fukui_city_names">
+        <item>福井市</item>
+        <item>敦賀市</item>
+    </string-array>
+    <string-array name="yamanashi_city_names">
+        <item>甲府市</item>
+        <item>南巨摩郡身延町</item>
+    </string-array>
+    <string-array name="nagano_city_names">
+        <item>長野市</item>
+        <item>松本市</item>
+        <item>飯田市</item>
+    </string-array>
+    <string-array name="gifu_city_names">
+        <item>大垣市</item>
+        <item>郡上市</item>
+    </string-array>
+    <string-array name="shizuoka_city_names">
+        <item>静岡市</item>
+        <item>沼津市</item>
+        <item>伊東市</item>
+    </string-array>
+    <string-array name="aichi_city_names">
+        <item>名古屋市北区</item>
+        <item>豊橋市</item>
+    </string-array>
+    <string-array name="mie_city_names">
+        <item>四日市市</item>
+        <item>津市</item>
+    </string-array>
+    <string-array name="shiga_city_names">
+        <item>大津市</item>
+        <item>高島市</item>
+    </string-array>
+    <string-array name="kyoto_city_names">
+        <item>京都市上京区</item>
+        <item>舞鶴市</item>
+        <item>京都市右京区</item>
+    </string-array>
+    <string-array name="osaka_city_names">
+        <item>大阪市</item>
+        <item>豊中市</item>
+        <item>泉大津市</item>
+    </string-array>
+    <string-array name="hyogo_city_names">
+        <item>兵庫県加古川市</item>
+        <item>西宮市</item>
+        <item>篠山市</item>
+        <item>神戸市須磨区</item>
+    </string-array>
+    <string-array name="nara_city_names">
+        <item>奈良市</item>
+        <item>吉野郡下市町</item>
+        <item>橿原市</item>
+    </string-array>
+    <string-array name="wakayama_city_names">
+        <item>和歌山市</item>
+        <item>田辺市</item>
+        <item>新宮市</item>
+    </string-array>
+    <string-array name="tottori_city_names">
+        <item>鳥取市</item>
+        <item>倉吉市</item>
+    </string-array>
+    <string-array name="shimane_city_names">
+        <item>松江市</item>
+        <item>浜田市</item>
+    </string-array>
+    <string-array name="okayama_city_names">
+        <item>岡山市北区</item>
+        <item>笠岡市</item>
+        <item>真庭市</item>
+    </string-array>
+    <string-array name="hiroshima_city_names">
+        <item>広島市南区</item>
+        <item>三原市</item>
+    </string-array>
+    <string-array name="yamagushi_city_names">
+        <item>宇部市</item>
+        <item>光市</item>
+        <item>山口市</item>
+    </string-array>
+    <string-array name="tokushima_city_names">
+        <item>徳島市</item>
+        <item>那賀郡那賀町</item>
+    </string-array>
+    <string-array name="kagawa_city_names">
+        <item>高松市</item>
+        <item>善通寺市</item>
+    </string-array>
+    <string-array name="ehime_city_names">
+        <item>新居浜市</item>
+        <item>松山市</item>
+        <item>宇和島市</item>
+    </string-array>
+    <string-array name="kouchi_city_names">
+        <item>高知市</item>
+        <item>四万十市</item>
+    </string-array>
+    <string-array name="fukuoka_city_names">
+        <item>北九州市小倉北区</item>
+        <item>久留米市</item>
+        <item>田川市</item>
+    </string-array>
+    <string-array name="saga_city_names">
+        <item>佐賀市</item>
+        <item>唐津市</item>
+        <item>武雄市</item>
+    </string-array>
+    <string-array name="nagasaki_city_names">
+        <item>長崎市</item>
+        <item>諫早市</item>
+        <item>佐世保市</item>
+    </string-array>
+    <string-array name="kumamoto_city_names">
+        <item>熊本市</item>
+        <item>水俣市</item>
+        <item>阿蘇郡高森町</item>
+    </string-array>
+    <string-array name="oita_city_names">
+        <item>佐伯市</item>
+        <item>由布市</item>
+        <item>日田市</item>
+    </string-array>
+    <string-array name="miyazaki_city_names">
+        <item>延岡市</item>
+        <item>宮崎市</item>
+    </string-array>
+    <string-array name="kagoshima_city_names">
+        <item>鹿児島市</item>
+        <item>伊佐市</item>
+        <item>鹿屋市</item>
+    </string-array>
 
     <string-array name="city_names">
         <item>札幌市</item>
@@ -124,6 +300,92 @@
         <item>横浜市</item>
         <item>川崎市</item>
         <item>平塚市</item>
+        <!-- 中部 -->
+        <item>新潟市西区</item>
+        <item>長岡市</item>
+        <item>上越市</item>
+        <item>富山市</item>
+        <item>魚津市</item>
+        <item>金沢市</item>
+        <item>七尾市</item>
+        <item>福井市</item>
+        <item>敦賀市</item>
+        <item>甲府市</item>
+        <item>南巨摩郡身延町</item>
+        <item>長野市</item>
+        <item>松本市</item>
+        <item>飯田市</item>
+        <item>大垣市</item>
+        <item>郡上市</item>
+        <item>静岡市</item>
+        <item>沼津市</item>
+        <item>伊東市</item>
+        <item>名古屋市北区</item>
+        <item>豊橋市</item>
+        <item>四日市市</item>
+        <item>津市</item>
+        <!-- 関西 -->
+        <item>大津市</item>
+        <item>高島市</item>
+        <item>京都市上京区</item>
+        <item>舞鶴市</item>
+        <item>京都市右京区</item>
+        <item>大阪市</item>
+        <item>豊中市</item>
+        <item>泉大津市</item>
+        <item>兵庫県加古川市</item>
+        <item>西宮市</item>
+        <item>篠山市</item>
+        <item>神戸市須磨区</item>
+        <item>奈良市</item>
+        <item>吉野郡下市町</item>
+        <item>橿原市</item>
+        <item>和歌山市</item>
+        <item>田辺市</item>
+        <item>新宮市</item>
+        <!-- 中国・四国 -->
+        <item>鳥取市</item>
+        <item>倉吉市</item>
+        <item>松江市</item>
+        <item>浜田市</item>
+        <item>岡山市北区</item>
+        <item>笠岡市</item>
+        <item>真庭市</item>
+        <item>広島市南区</item>
+        <item>三原市</item>
+        <item>宇部市</item>
+        <item>光市</item>
+        <item>山口市</item>
+        <item>徳島市</item>
+        <item>那賀郡那賀町</item>
+        <item>高松市</item>
+        <item>善通寺市</item>
+        <item>新居浜市</item>
+        <item>松山市</item>
+        <item>宇和島市</item>
+        <item>高知市</item>
+        <item>四万十市</item>
+        <!-- 九州 -->
+        <item>北九州市小倉北区</item>
+        <item>久留米市</item>
+        <item>田川市</item>
+        <item>佐賀市</item>
+        <item>唐津市</item>
+        <item>武雄市</item>
+        <item>長崎市</item>
+        <item>諫早市</item>
+        <item>佐世保市</item>
+        <item>熊本市</item>
+        <item>水俣市</item>
+        <item>阿蘇郡高森町</item>
+        <item>佐伯市</item>
+        <item>由布市</item>
+        <item>日田市</item>
+        <item>延岡市</item>
+        <item>宮崎市</item>
+        <item>鹿児島市</item>
+        <item>伊佐市</item>
+        <item>鹿屋市</item>
     </string-array>
     <integer-array name="city_code">
         <item>50110100</item>
@@ -163,5 +425,92 @@
         <item>51410100</item>
         <item>51410200</item>
         <item>51420100</item>
+        <!-- 中部 -->
+        <item>51510100</item>
+        <item>51520100</item>
+        <item>51520200</item>
+        <item>51610100</item>
+        <item>51620100</item>
+        <item>51710100</item>
+        <item>51720100</item>
+        <item>51810100</item>
+        <item>51820100</item>
+        <item>51910100</item>
+        <item>51920200</item>
+        <item>52010100</item>
+        <item>52020100</item>
+        <item>52020200</item>
+        <item>52110100</item>
+        <item>52120100</item>
+        <item>52210100</item>
+        <item>52220100</item>
+        <item>52220200</item>
+        <item>52310100</item>
+        <item>52320100</item>
+        <item>52410100</item>
+        <item>52420100</item>
+        <!-- 関西 -->
+        <item>52510100</item>
+        <item>52510300</item>
+        <item>52520100</item>
+        <item>52610100</item>
+        <item>52610200</item>
+        <item>52620100</item>
+        <item>52710100</item>
+        <item>52710200</item>
+        <item>52720100</item>
+        <item>52810100</item>
+        <item>52820100</item>
+        <item>52820200</item>
+        <item>52820300</item>
+        <item>52910100</item>
+        <item>52920100</item>
+        <item>52920200</item>
+        <item>53010100</item>
+        <item>53010200</item>
+        <item>53020100</item>
+        <!-- 中国・四国 -->
+        <item>53110100</item>
+        <item>53120100</item>
+        <item>53210100</item>
+        <item>53220100</item>
+        <item>52520200</item>
+        <item>53310100</item>
+        <item>53320100</item>
+        <item>53410100</item>
+        <item>53420100</item>
+        <item>53510100</item>
+        <item>53520100</item>
+        <item>53520200</item>
+        <item>53610100</item>
+        <item>53620100</item>
+        <item>53710100</item>
+        <item>53720100</item>
+        <item>53810100</item>
+        <item>53810200</item>
+        <item>53820100</item>
+        <item>53910100</item>
+        <item>53920100</item>
+        <!-- 九州 -->
+        <item>54010100</item>
+        <item>54010200</item>
+        <item>54020100</item>
+        <item>54110100</item>
+        <item>54110200</item>
+        <item>54120100</item>
+        <item>54210100</item>
+        <item>54210200</item>
+        <item>54220100</item>
+        <item>54310100</item>
+        <item>54310200</item>
+        <item>54320100</item>
+        <item>54410100</item>
+        <item>54420100</item>
+        <item>54420200</item>
+        <item>54510100</item>
+        <item>54520100</item>
+        <item>54610100</item>
+        <item>54620100</item>
+        <item>54620200</item>
     </integer-array>
 </resources>

@@ -33,6 +33,14 @@ class MainViewModel : ViewModel() {
         mKahunHisanData.postValue(kahunHisanData)
     }
 
+    private var mTemperature: MutableLiveData<String> = MutableLiveData()
+    var temperature: LiveData<String> = mTemperature
+    fun setTemperature(temperature :String){
+        mTemperature.postValue(temperature)
+    }
+
+
+
     @BindingAdapter("android:src")
     fun setImageViewResource(imageView: ImageView, res: Int){
         imageView.setImageResource(res)

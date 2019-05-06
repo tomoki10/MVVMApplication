@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.dev.megaloma.mvvmapplication.KahunData
 import com.dev.megaloma.mvvmapplication.R
 import com.dev.megaloma.mvvmapplication.source.SimpleHttp
@@ -62,15 +63,16 @@ class StatFragment : Fragment() {
         //現在設定中の地域を取得(デフォルトは東京設定)
         val prefer = activity!!.getSharedPreferences("DataSave", AppCompatActivity.MODE_PRIVATE)
                 .getInt("city_code",51320100)
+        val statTitleText = view.findViewById<TextView>(R.id.stat_title_text)
         runBlocking {
             GlobalScope.launch {
-                setChartData(prefer.toString(), chart)
+                setChartData(prefer.toString(), chart, statTitleText)
             }.join()
         }
         return view
     }
 
-    private fun setChartData(cityCode:String, chart: BarChart){
+    private fun setChartData(cityCode:String, chart: BarChart, statTitleText: TextView){
 
         //当日分の花粉データ取得
         val kahunApiUrl = getString(R.string.aws_lambda_url)
@@ -141,6 +143,16 @@ class StatFragment : Fragment() {
         val data = BarData(getBarData(kahunBarData))
         Log.d("BarData",data.toString())
         chart.data = data
+
+        //タイトルの設定
+        val kahunData = Gson().fromJson(kahunJsonArray[0], KahunData::class.java)
+        statTitleText.text =getString(R.string.stat_title,
+                kahunData.PREFECTURES,
+                kahunData.CITY,
+                kahunData.DATE_TIME.substring(0,4),
+                kahunData.DATE_TIME.substring(4,6),
+                kahunData.DATE_TIME.substring(6,8)
+        )
     }
 
     //棒グラフのデータを取得
@@ -156,10 +168,8 @@ class StatFragment : Fragment() {
         dataSet.isHighlightEnabled = false
 
         //Barの色をセット
-//        dataSet.setColors(intArrayOf(com.dev.megaloma.mvvmapplication.R.color.material_blue,
-//                com.dev.megaloma.mvvmapplication.R.color.material_green,
-//                com.dev.megaloma.mvvmapplication.R.color.material_yellow,
-//                com.dev.megaloma.mvvmapplication.R.color.material_blue), context)
+        val colors = intArrayOf(R.color.material_green)
+        dataSet.setColors(colors,context)
         bars.add(dataSet)
         return bars
     }

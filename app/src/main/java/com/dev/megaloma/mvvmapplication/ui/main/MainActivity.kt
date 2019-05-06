@@ -5,14 +5,35 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import com.dev.megaloma.mvvmapplication.R
 import com.dev.megaloma.mvvmapplication.ui.area_check.AreaCheckActivity
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import kotlinx.android.synthetic.main.main_activity.*
 
 
 class MainActivity : AppCompatActivity() {
 
     private var mTabsPagerAdapter: TabsPagerAdapter? = null
+
+    //オプションメニューの追加
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item!!.itemId == R.id.action_settings_memo_detail){
+            val intent = Intent(this, ResourceActivity::class.java)
+            startActivity(intent)
+        }else if(item.itemId == R.id.action_settings_memo_detail2){
+            val intent = Intent(this, OssLicensesMenuActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

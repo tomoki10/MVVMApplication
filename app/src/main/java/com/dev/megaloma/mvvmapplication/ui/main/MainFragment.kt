@@ -105,6 +105,7 @@ class MainFragment : Fragment() {
             viewModel.setPrefectureAndCityNameName("場所："+kahunDataJson.PREFECTURES
                     +kahunDataJson.CITY)
             viewModel.setKahunHisanData("花粉飛散数：${kahunDataJson.KAHUN_HISAN} 個/m3")
+            viewModel.setTemperature("気温：${kahunDataJson.TEMPERATURE} ℃")
 
             //画像変更 のちにfindByIdを使わない方法に変更
             val imageView: ImageView = view.findViewById(R.id.kahun_image)
