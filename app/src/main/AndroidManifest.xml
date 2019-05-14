@@ -13,6 +13,12 @@
         android:roundIcon="@drawable/jetmets_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/ad_key"/>
+        
         <activity android:name=".ui.main.ResourceActivity" />
         <activity android:name=".ui.area_check.AreaCheckActivity" />
         <activity android:name=".ui.main.MainActivity">

@@ -16,11 +16,15 @@ import com.dev.megaloma.mvvmapplication.R
 import com.dev.megaloma.mvvmapplication.databinding.MainFragmentBinding
 import com.dev.megaloma.mvvmapplication.source.SimpleHttp
 import com.dev.megaloma.mvvmapplication.ui.area_check.AreaCheckActivity
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
+
 
 class MainFragment : Fragment() {
 
@@ -42,6 +46,14 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         binding.setLifecycleOwner(this)
         binding.viewmodel = viewModel
+
+        //広告用
+        MobileAds.initialize(context,getString(R.string.ad_key))
+        val adView: AdView = view.findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder()
+                //.addTestDevice(getString(R.string.ad_test_device))
+                .build()
+        adView.loadAd(adRequest)
 
         // Activityへの遷移　Activityのちに実装
         binding.placeChangeBtn.setOnClickListener{
@@ -94,44 +106,54 @@ class MainFragment : Fragment() {
             val json: JsonObject = Gson().fromJson(response, JsonObject::class.java)
                     .get("body").asJsonObject.get("Item").asJsonObject
             Log.d("Json return",json.toString())
-            val kahunDataJson: KahunData = Gson().fromJson(json, KahunData::class.java)
 
-            //年月日の表示を加工
-            val date = kahunDataJson.DATE_TIME.substring(0,4) + "年" +
-                    kahunDataJson.DATE_TIME.substring(4,6) + "月" +
-                    kahunDataJson.DATE_TIME.substring(6,8) + "日" +
-                    kahunDataJson.DATE_TIME.substring(8,10) + "時"
-            viewModel.setDate("日付：$date")
-            viewModel.setPrefectureAndCityNameName("場所："+kahunDataJson.PREFECTURES
-                    +kahunDataJson.CITY)
-            viewModel.setKahunHisanData("花粉飛散数：${kahunDataJson.KAHUN_HISAN} 個/m3")
-            viewModel.setTemperature("気温：${kahunDataJson.TEMPERATURE} ℃")
+            try{
+                val kahunDataJson: KahunData = Gson().fromJson(json, KahunData::class.java)
+                //年月日の表示を加工
+                val date = kahunDataJson.DATE_TIME.substring(0,4) + "年" +
+                        kahunDataJson.DATE_TIME.substring(4,6) + "月" +
+                        kahunDataJson.DATE_TIME.substring(6,8) + "日" +
+                        kahunDataJson.DATE_TIME.substring(8,10) + "時"
+                viewModel.setDate("日付：$date")
+                viewModel.setPrefectureAndCityNameName("場所："+kahunDataJson.PREFECTURES
+                        +kahunDataJson.CITY)
+                viewModel.setKahunHisanData("花粉飛散数：${kahunDataJson.KAHUN_HISAN} 個/m3")
+                viewModel.setTemperature("気温：${kahunDataJson.TEMPERATURE} ℃")
 
-            //画像変更 のちにfindByIdを使わない方法に変更
-            val imageView: ImageView = view.findViewById(R.id.kahun_image)
-            Log.d("KahunHisan",kahunDataJson.KAHUN_HISAN)
-            // 花粉強度に合わせて画像を変更
-            when {
-                kahunDataJson.KAHUN_HISAN.toInt() >= 1000 ->{
-                    viewModel.setKahunRyouText("花粉量：非常に多い")
-                    viewModel.setImageViewResource(imageView,R.drawable.kahun_4)
+                //画像変更 のちにfindByIdを使わない方法に変更
+                val imageView: ImageView = view.findViewById(R.id.kahun_image)
+                // 花粉強度に合わせて画像を変更
+                when {
+                    kahunDataJson.KAHUN_HISAN.toInt() >= 1000 ->{
+                        viewModel.setKahunRyouText("花粉量：非常に多い")
+                        viewModel.setImageViewResource(imageView, R.drawable.kahun_4)
+                    }
+                    kahunDataJson.KAHUN_HISAN.toInt() >= 500 -> {
+                        viewModel.setKahunRyouText("花粉量：かなり多い")
+                        viewModel.setImageViewResource(imageView, R.drawable.kahun_3)
+                    }
+                    kahunDataJson.KAHUN_HISAN.toInt() >= 100 -> {
+                        viewModel.setKahunRyouText("花粉量：多い")
+                        viewModel.setImageViewResource(imageView, R.drawable.kahun_2)
+                    }
+                    kahunDataJson.KAHUN_HISAN.toInt() >= 50 ->{
+                        viewModel.setKahunRyouText("花粉量：少し多い")
+                        viewModel.setImageViewResource(imageView, R.drawable.kahun_1)
+                    }
+                    else -> {
+                        viewModel.setKahunRyouText("花粉量：少し")
+                        viewModel.setImageViewResource(imageView, R.drawable.kahun_0)
+                    }
                 }
-                kahunDataJson.KAHUN_HISAN.toInt() >= 500 -> {
-                    viewModel.setKahunRyouText("花粉量：かなり多い")
-                    viewModel.setImageViewResource(imageView, R.drawable.kahun_3)
-                }
-                kahunDataJson.KAHUN_HISAN.toInt() >= 100 -> {
-                    viewModel.setKahunRyouText("花粉量：多い")
-                    viewModel.setImageViewResource(imageView, R.drawable.kahun_2)
-                }
-                kahunDataJson.KAHUN_HISAN.toInt() >= 50 ->{
-                    viewModel.setKahunRyouText("花粉量：少し多い")
-                    viewModel.setImageViewResource(imageView,R.drawable.kahun_1)
-                }
-                else -> {
-                    viewModel.setKahunRyouText("花粉量：少し")
-                    viewModel.setImageViewResource(imageView,R.drawable.kahun_0)
-                }
+
+            }catch (e:Exception){
+                viewModel.setDate("日付：")
+                viewModel.setPrefectureAndCityNameName("場所：未取得")
+                viewModel.setKahunHisanData("花粉飛散数：?? 個/m3")
+                viewModel.setTemperature("気温：??℃")
+                val imageView: ImageView = view.findViewById(R.id.kahun_image)
+                viewModel.setKahunRyouText("花粉量：未取得")
+                viewModel.setImageViewResource(imageView, R.drawable.kahun_0)
             }
         }
     }

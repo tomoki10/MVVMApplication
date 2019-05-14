@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:paddingTop="@dimen/activity_vertical_margin">
     <data>
         <import type="android.view.View"/>
@@ -8,24 +9,32 @@
             type="com.dev.megaloma.mvvmapplication.ui.main.StatViewModel"/>
     </data>
 
-    <FrameLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.main.StatFragment">
-        <TextView
-            android:id="@+id/stat_title_text"
-            android:text="@string/no_data"
-            android:textSize="15sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40sp"/>
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/chart1"
-            android:text="@string/ClickMe"
+        <FrameLayout
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="64sp"
-            />
-    </FrameLayout>
+            tools:context=".ui.main.StatFragment">
+            <TextView
+                android:id="@+id/stat_title_text"
+                android:text="@string/no_data"
+                android:textSize="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"/>
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart1"
+                android:text="@string/ClickMe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="64sp"
+                android:layout_marginBottom="50sp"
+                />
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/ad_banner_key" />
+        </FrameLayout>
 </layout>

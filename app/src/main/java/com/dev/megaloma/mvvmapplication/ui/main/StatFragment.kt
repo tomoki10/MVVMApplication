@@ -19,6 +19,8 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -27,25 +29,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
-
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class StatFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
-    private lateinit var viewModel: StatViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    //private lateinit var viewModel: StatViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -58,6 +45,13 @@ class StatFragment : Fragment() {
 //        binding.viewmodel = mViewModel
         val chart = view.findViewById<BarChart>(R.id.chart1)
         chart.setNoDataText(getString(R.string.ClickMe))
+
+        //広告用
+        val adView: AdView = view.findViewById(R.id.adView2)
+        val adRequest = AdRequest.Builder()
+                //.addTestDevice(getString(R.string.ad_test_device))
+                .build()
+        adView.loadAd(adRequest)
 
         //花粉データを設定
         //現在設定中の地域を取得(デフォルトは東京設定)
@@ -101,6 +95,7 @@ class StatFragment : Fragment() {
         left.axisMaximum = 500f
         left.labelCount = Hour
         left.setDrawTopYLabelEntry(true)
+        // 整数表記の記載がほしい
 
         //Y軸(右)
         val right = chart.axisRight
@@ -117,9 +112,30 @@ class StatFragment : Fragment() {
             labels[labelNum] = (labelNum+1).toString()
         }
 
-        val kahunBarData = Array(Hour) { 0.toString()}
-        for((index, value) in kahunJsonArray.withIndex()) {
-            kahunBarData[index] = Gson().fromJson(value, KahunData::class.java).KAHUN_HISAN
+        try{
+            val kahunBarData = Array(Hour) { 0.toString()}
+
+            for(value in kahunJsonArray) {
+                //時刻ごとに格納(hhが1~24表記なので-1で補正)
+                val kahunTmp = Gson().fromJson(value, KahunData::class.java)
+                kahunBarData[kahunTmp.DATE_TIME.substring(8,10).toInt()-1]=kahunTmp.KAHUN_HISAN
+            }
+
+            //表示データ取得
+            val data = BarData(getBarData(kahunBarData))
+            Log.d("BarData",data.toString())
+            chart.data = data
+            //タイトルの設定
+            val kahunData = Gson().fromJson(kahunJsonArray[0], KahunData::class.java)
+            statTitleText.text =getString(R.string.stat_title,
+                    kahunData.PREFECTURES,
+                    kahunData.CITY,
+                    kahunData.DATE_TIME.substring(0,4),
+                    kahunData.DATE_TIME.substring(4,6),
+                    kahunData.DATE_TIME.substring(6,8)
+            )
+        }catch(e:Exception){
+            statTitleText.text = "データ取得に失敗しました"
         }
 
         xAxis.valueFormatter = IndexAxisValueFormatter(labels)
@@ -139,20 +155,6 @@ class StatFragment : Fragment() {
         chart.legend.isEnabled = false
         chart.setScaleEnabled(false)
 
-        //表示データ取得
-        val data = BarData(getBarData(kahunBarData))
-        Log.d("BarData",data.toString())
-        chart.data = data
-
-        //タイトルの設定
-        val kahunData = Gson().fromJson(kahunJsonArray[0], KahunData::class.java)
-        statTitleText.text =getString(R.string.stat_title,
-                kahunData.PREFECTURES,
-                kahunData.CITY,
-                kahunData.DATE_TIME.substring(0,4),
-                kahunData.DATE_TIME.substring(4,6),
-                kahunData.DATE_TIME.substring(6,8)
-        )
     }
 
     //棒グラフのデータを取得
@@ -174,11 +176,6 @@ class StatFragment : Fragment() {
         return bars
     }
 
-
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
     override fun onDetach() {
         super.onDetach()
         listener = null
@@ -189,14 +186,12 @@ class StatFragment : Fragment() {
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                StatFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
         private const val Hour = 24
     }
 }
+//整数表記用
+//class MyAxis:IndexAxisValueFormatter {
+//    override fun getFormattedValue(value: Float): String {
+//        return value.toInt().toString()
+//    }
+//}

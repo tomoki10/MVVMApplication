@@ -388,10 +388,12 @@
         <item>鹿屋市</item>
     </string-array>
     <integer-array name="city_code">
+        <!-- 北海道 -->
         <item>50110100</item>
         <item>50110200</item>
         <item>50120100</item>
         <item>50120200</item>
+        <!-- 東北 -->
         <item>50210100</item>
         <item>50220100</item>
         <item>50310100</item>
@@ -405,6 +407,7 @@
         <item>50620100</item>
         <item>50710100</item>
         <item>50720100</item>
+        <!-- 関東 -->
         <item>50810100</item>
         <item>50810200</item>
         <item>50820100</item>
