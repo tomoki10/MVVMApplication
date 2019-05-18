@@ -61,7 +61,7 @@ class StatFragment : Fragment() {
         runBlocking {
             GlobalScope.launch {
                 setChartData(prefer.toString(), chart, statTitleText)
-            }.join()
+            }
         }
         return view
     }
@@ -156,6 +156,9 @@ class StatFragment : Fragment() {
         //凡例
         chart.legend.isEnabled = false
         chart.setScaleEnabled(false)
+
+        //設定を画面に反映
+        chart.invalidate()
 
     }
 
