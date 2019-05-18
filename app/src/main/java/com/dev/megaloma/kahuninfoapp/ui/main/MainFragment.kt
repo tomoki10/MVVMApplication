@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication.ui.main
+package com.dev.megaloma.kahuninfoapp.ui.main
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -6,16 +6,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.dev.megaloma.mvvmapplication.KahunData
-import com.dev.megaloma.mvvmapplication.R
-import com.dev.megaloma.mvvmapplication.databinding.MainFragmentBinding
-import com.dev.megaloma.mvvmapplication.source.SimpleHttp
-import com.dev.megaloma.mvvmapplication.ui.area_check.AreaCheckActivity
+import com.dev.megaloma.kahuninfoapp.KahunData
+import com.dev.megaloma.kahuninfoapp.source.SimpleHttp
+import com.dev.megaloma.kahuninfoapp.ui.area_check.AreaCheckActivity
+import com.dev.megaloma.kahuninfoapp.R
+import com.dev.megaloma.kahuninfoapp.databinding.MainFragmentBinding
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -95,8 +94,8 @@ class MainFragment : Fragment() {
         requestKeyInfo["DATE_TIME"] = AccessTimeUtils.getRequestDateTime(Calendar.getInstance(Locale.JAPAN))
         requestKeyInfo["SINGLE_MULTIPLE_FLAG"] = "0"
 
-        Log.d("SOKUTEI_KYOKU_CODE",requestKeyInfo["SOKUTEI_KYOKU_CODE"])
-        Log.d("DATE_TIME",requestKeyInfo["DATE_TIME"])
+//        Log.d("SOKUTEI_KYOKU_CODE",requestKeyInfo["SOKUTEI_KYOKU_CODE"])
+//        Log.d("DATE_TIME",requestKeyInfo["DATE_TIME"])
 
         GlobalScope.launch {
 
@@ -106,10 +105,10 @@ class MainFragment : Fragment() {
             val responseCode :String = responsePair.second
             if(responseCode == "200"){
                 //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
-                Log.d("response",response)
+//                Log.d("response",response)
                 val json: JsonObject = Gson().fromJson(response, JsonObject::class.java)
                         .get("body").asJsonObject.get("Item").asJsonObject
-                Log.d("Json return",json.toString())
+//                Log.d("Json return",json.toString())
 
                 val kahunDataJson: KahunData = Gson().fromJson(json, KahunData::class.java)
                 //年月日の表示を加工

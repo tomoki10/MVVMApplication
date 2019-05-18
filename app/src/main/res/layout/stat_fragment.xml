@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewmodel"
-            type="com.dev.megaloma.mvvmapplication.ui.main.StatViewModel"/>
+            type="com.dev.megaloma.kahuninfoapp.ui.main.StatViewModel"/>
     </data>
 
         <FrameLayout

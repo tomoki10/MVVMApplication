@@ -1,17 +1,16 @@
-package com.dev.megaloma.mvvmapplication.ui.main
+package com.dev.megaloma.kahuninfoapp.ui.main
 
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.dev.megaloma.mvvmapplication.KahunData
-import com.dev.megaloma.mvvmapplication.R
-import com.dev.megaloma.mvvmapplication.source.SimpleHttp
+import com.dev.megaloma.kahuninfoapp.KahunData
+import com.dev.megaloma.kahuninfoapp.source.SimpleHttp
+import com.dev.megaloma.kahuninfoapp.R
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -75,8 +74,7 @@ class StatFragment : Fragment() {
         // 問い合わせ方法によって最後に調整
         val requestKeyInfo = HashMap<String,String>()
         requestKeyInfo["SOKUTEI_KYOKU_CODE"] = cityCode
-        requestKeyInfo["DATE_TIME"] = AccessTimeUtils
-                .getRequestDateTime(Calendar.getInstance(Locale.JAPAN))
+        requestKeyInfo["DATE_TIME"] = AccessTimeUtils.getRequestDateTime(Calendar.getInstance(Locale.JAPAN))
         // 複数取得
         requestKeyInfo["SINGLE_MULTIPLE_FLAG"] = "1"
 
@@ -85,10 +83,10 @@ class StatFragment : Fragment() {
         val response :String = responsePair.first
         val responseCode :String = responsePair.second
         //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
-        Log.d("bar response",response)
+//        Log.d("bar response",response)
         val jsonElement: JsonElement = Gson().fromJson(response, JsonObject::class.java)
                 .get("body").asJsonObject.get("Items")
-        Log.d("JsonObj",jsonElement.toString())
+//        Log.d("JsonObj",jsonElement.toString())
 
         val kahunJsonArray = jsonElement.asJsonArray
 
@@ -112,7 +110,7 @@ class StatFragment : Fragment() {
         val xAxis = chart.xAxis
         //X軸に表示するLabelのリスト(最初の""は原点の位置)
         val labels= arrayOfNulls<String>(25)
-        for (labelNum in 0 .. Hour){
+        for (labelNum in 0 ..Hour){
             labels[labelNum] = (labelNum+1).toString()
         }
 
@@ -127,7 +125,7 @@ class StatFragment : Fragment() {
 
             //表示データ取得
             val data = BarData(getBarData(kahunBarData))
-            Log.d("BarData",data.toString())
+//            Log.d("BarData",data.toString())
             chart.data = data
             //タイトルの設定
             val kahunData = Gson().fromJson(kahunJsonArray[0], KahunData::class.java)

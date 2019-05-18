@@ -4,7 +4,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewmodel"
-            type="com.dev.megaloma.mvvmapplication.ui.area_check.AreaCheckViewModel"/>
+            type="com.dev.megaloma.kahuninfoapp.ui.area_check.AreaCheckViewModel"/>
     </data>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

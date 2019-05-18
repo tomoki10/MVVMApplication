@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication.ui.main
+package com.dev.megaloma.kahuninfoapp.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.dev.megaloma.mvvmapplication.R
-import com.dev.megaloma.mvvmapplication.ui.area_check.AreaCheckActivity
+import com.dev.megaloma.kahuninfoapp.ui.area_check.AreaCheckActivity
+import com.dev.megaloma.kahuninfoapp.R
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import kotlinx.android.synthetic.main.main_activity.*
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val prefer = getSharedPreferences("DataSave", MODE_PRIVATE)
-        Log.d("MainActivityTest",prefer.getInt("city_code",0).toString())
+        //Log.d("MainActivityTest",prefer.getInt("city_code",0).toString())
 
         //初回ログインの場合は、地域選択のActivityに移動
         if(prefer.getInt("city_code",0)==0){

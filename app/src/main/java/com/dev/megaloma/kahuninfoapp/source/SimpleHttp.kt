@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication.source
+package com.dev.megaloma.kahuninfoapp.source
 
 import android.util.Log
 import okhttp3.*

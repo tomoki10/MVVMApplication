@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication.ui.area_check
+package com.dev.megaloma.kahuninfoapp.ui.area_check
 
 class TransrateCityNameToCityCode(){
     fun convert(targetCityName: String, cityNameArr: Array<String>, cityCode: Array<Int>): Int? {

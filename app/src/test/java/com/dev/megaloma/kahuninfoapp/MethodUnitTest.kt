@@ -1,7 +1,7 @@
-package com.dev.megaloma.mvvmapplication
+package com.dev.megaloma.kahuninfoapp
 
-import com.dev.megaloma.mvvmapplication.ui.area_check.TransrateCityNameToCityCode
-import com.dev.megaloma.mvvmapplication.ui.main.AccessTimeUtils
+import com.dev.megaloma.kahuninfoapp.ui.area_check.TransrateCityNameToCityCode
+import com.dev.megaloma.kahuninfoapp.ui.main.AccessTimeUtils
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.text.SimpleDateFormat
@@ -31,7 +31,7 @@ class MethodUnitTest {
         val sdf = SimpleDateFormat("yyyyMMddHH",Locale.JAPAN)
         val tmpCalendar = Calendar.getInstance(Locale.JAPAN)
         tmpCalendar.add(Calendar.HOUR, -1)
-        assertEquals(sdf.format(tmpCalendar.time),AccessTimeUtils.getRequestDateTime(calendar))
+        assertEquals(sdf.format(tmpCalendar.time), AccessTimeUtils.getRequestDateTime(calendar))
 
         //通常時(日跨ぎのないパターン)
         calendar.set(2019,3,30,11,0,0)

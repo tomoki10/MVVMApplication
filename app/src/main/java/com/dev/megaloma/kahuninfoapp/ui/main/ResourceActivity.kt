@@ -1,8 +1,8 @@
-package com.dev.megaloma.mvvmapplication.ui.main
+package com.dev.megaloma.kahuninfoapp.ui.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.dev.megaloma.mvvmapplication.R
+import com.dev.megaloma.kahuninfoapp.R
 
 class ResourceActivity : AppCompatActivity() {
 

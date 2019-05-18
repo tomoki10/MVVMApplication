@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication
+package com.dev.megaloma.kahuninfoapp
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

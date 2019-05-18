@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication.ui.area_check
+package com.dev.megaloma.kahuninfoapp.ui.area_check
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -8,12 +8,11 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dev.megaloma.mvvmapplication.R
-import com.dev.megaloma.mvvmapplication.databinding.AreaCheckFragmentBinding
+import com.dev.megaloma.kahuninfoapp.R
+import com.dev.megaloma.kahuninfoapp.databinding.AreaCheckFragmentBinding
 import java.util.*
 
 class AreaCheckFragment : Fragment() {
@@ -38,7 +37,7 @@ class AreaCheckFragment : Fragment() {
         // レイアウトマネージャを設定(ここで縦方向の標準リストであることを指定)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         // Adapterの設定
-        val recyclerViewAdapter =  RecyclerViewAdapter(convertArrayToList(R.array.prefecture_names))
+        val recyclerViewAdapter = RecyclerViewAdapter(convertArrayToList(R.array.prefecture_names))
         binding.recyclerView.adapter = recyclerViewAdapter
         //境界線の描画
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
@@ -65,7 +64,7 @@ class AreaCheckFragment : Fragment() {
                             checkedItem = which
                         }
                         .setPositiveButton("OK") { _,  _->
-                            Log.d("checkedItem:", "" + items.get(checkedItem))
+//                            Log.d("checkedItem:", "" + items.get(checkedItem))
                             //測定値コードの呼び出し 値がない場合は北海道のコードを返す
                             val cityCode=
                             TransrateCityNameToCityCode().convert(
@@ -78,8 +77,8 @@ class AreaCheckFragment : Fragment() {
                             val editor = data.edit()
                             editor.putInt("city_code", cityCode)
                             editor.apply()
-                            Log.d("res",resources.getIntArray(R.array.city_code)[0].toString())
-                            Log.d("city_code put",cityCode.toString())
+//                            Log.d("res",resources.getIntArray(R.array.city_code)[0].toString())
+//                            Log.d("city_code put",cityCode.toString())
 
                             Optional.ofNullable(activity)
                                     .filter { activity -> activity is OnFragmentListener }

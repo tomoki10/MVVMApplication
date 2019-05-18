@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication.ui.area_check
+package com.dev.megaloma.kahuninfoapp.ui.area_check
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

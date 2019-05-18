@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication
+package com.dev.megaloma.kahuninfoapp
 
 import com.google.gson.annotations.SerializedName
 

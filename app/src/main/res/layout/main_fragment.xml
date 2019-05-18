@@ -5,7 +5,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewmodel"
-            type="com.dev.megaloma.mvvmapplication.ui.main.MainViewModel"/>
+            type="com.dev.megaloma.kahuninfoapp.ui.main.MainViewModel"/>
     </data>
 
     <LinearLayout

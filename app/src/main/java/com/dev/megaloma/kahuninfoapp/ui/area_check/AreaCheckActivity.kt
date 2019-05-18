@@ -1,10 +1,10 @@
-package com.dev.megaloma.mvvmapplication.ui.area_check
+package com.dev.megaloma.kahuninfoapp.ui.area_check
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.dev.megaloma.mvvmapplication.R
+import com.dev.megaloma.kahuninfoapp.R
 
-class AreaCheckActivity : AppCompatActivity(),AreaCheckFragment.OnFragmentListener {
+class AreaCheckActivity : AppCompatActivity(), AreaCheckFragment.OnFragmentListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

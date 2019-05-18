@@ -1,4 +1,4 @@
-package com.dev.megaloma.mvvmapplication.ui.area_check
+package com.dev.megaloma.kahuninfoapp.ui.area_check
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.dev.megaloma.mvvmapplication.R
+import com.dev.megaloma.kahuninfoapp.R
 
 class RecyclerViewAdapter(private var dataSet: List<String>) :
         RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>() {
@@ -14,7 +14,7 @@ class RecyclerViewAdapter(private var dataSet: List<String>) :
     private var listener: onItemClickListener? = null
 
     // RecyclerViewAdapter$onItemClickListenerviewを作成し返す
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewAdapter.CustomViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_area_item, parent, false)
         return CustomViewHolder(v)
     }
