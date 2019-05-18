@@ -20,10 +20,10 @@ class SimpleHttp{
          * @apiKey アクセスしたいAPIのKey
          * @requestKeyInfo <取得したい属性名、取得したい値>
          *
-         * @return サーバから取得したBodyを返却
+         * @return サーバから取得したBody、ResponseCodeを返却
          */
         fun doSimpleHttp(httpsStr: String, apiKey: String,
-                         requestKeyInfo: Map<String,String>): String {
+                         requestKeyInfo: Map<String,String>): Pair<String,String> {
             val client = OkHttpClient()
             //POSTメソッドの実行を実装
             val jsonObj = JSONObject()
@@ -48,7 +48,7 @@ class SimpleHttp{
             Log.d("Http Response", res.toString())
             Log.d("Http ResHeader", res.headers().toString())
             Log.d("Http ResBody", res.body().toString())
-            return resBody.string()
+            return Pair(resBody.string(),res.code().toString())
         }
     }
 }

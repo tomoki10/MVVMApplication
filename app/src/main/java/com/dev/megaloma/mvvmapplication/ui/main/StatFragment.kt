@@ -80,7 +80,9 @@ class StatFragment : Fragment() {
         requestKeyInfo["SINGLE_MULTIPLE_FLAG"] = "1"
 
         // Httpレスポンスの受け取り
-        val response: String = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
+        val responsePair: Pair<String,String> = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
+        val response :String = responsePair.first
+        val responseCode :String = responsePair.second
         //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
         Log.d("bar response",response)
         val jsonElement: JsonElement = Gson().fromJson(response, JsonObject::class.java)
@@ -112,9 +114,9 @@ class StatFragment : Fragment() {
             labels[labelNum] = (labelNum+1).toString()
         }
 
-        try{
-            val kahunBarData = Array(Hour) { 0.toString()}
+        val kahunBarData = Array(Hour) { 0.toString()}
 
+        if(responseCode == "200"){
             for(value in kahunJsonArray) {
                 //時刻ごとに格納(hhが1~24表記なので-1で補正)
                 val kahunTmp = Gson().fromJson(value, KahunData::class.java)
@@ -134,7 +136,7 @@ class StatFragment : Fragment() {
                     kahunData.DATE_TIME.substring(4,6),
                     kahunData.DATE_TIME.substring(6,8)
             )
-        }catch(e:Exception){
+        }else{
             statTitleText.text = "データ取得に失敗しました"
         }
 

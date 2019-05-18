@@ -99,9 +99,12 @@ class MainFragment : Fragment() {
         Log.d("DATE_TIME",requestKeyInfo["DATE_TIME"])
 
         GlobalScope.launch {
-            try{
-                // Httpレスポンスの受け取り
-                val response: String = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
+
+            // Httpレスポンスの受け取り
+            val responsePair: Pair<String,String> = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
+            val response :String = responsePair.first
+            val responseCode :String = responsePair.second
+            if(responseCode == "200"){
                 //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
                 Log.d("response",response)
                 val json: JsonObject = Gson().fromJson(response, JsonObject::class.java)
@@ -145,7 +148,8 @@ class MainFragment : Fragment() {
                         viewModel.setImageViewResource(imageView, R.drawable.kahun_0)
                     }
                 }
-            }catch (e:Exception){
+            }else{
+                //通信障害やデータ取得に失敗した場合は、ダミーコードで埋める
                 viewModel.setDate("日付：")
                 viewModel.setPrefectureAndCityNameName("場所：取得に失敗しました")
                 viewModel.setKahunHisanData("花粉飛散数：?? 個/m3")
