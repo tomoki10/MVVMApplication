@@ -99,15 +99,15 @@ class MainFragment : Fragment() {
         Log.d("DATE_TIME",requestKeyInfo["DATE_TIME"])
 
         GlobalScope.launch {
-            // Httpレスポンスの受け取り
-            val response: String = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
-            //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
-            Log.d("response",response)
-            val json: JsonObject = Gson().fromJson(response, JsonObject::class.java)
-                    .get("body").asJsonObject.get("Item").asJsonObject
-            Log.d("Json return",json.toString())
-
             try{
+                // Httpレスポンスの受け取り
+                val response: String = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
+                //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
+                Log.d("response",response)
+                val json: JsonObject = Gson().fromJson(response, JsonObject::class.java)
+                        .get("body").asJsonObject.get("Item").asJsonObject
+                Log.d("Json return",json.toString())
+
                 val kahunDataJson: KahunData = Gson().fromJson(json, KahunData::class.java)
                 //年月日の表示を加工
                 val date = kahunDataJson.DATE_TIME.substring(0,4) + "年" +
@@ -145,10 +145,9 @@ class MainFragment : Fragment() {
                         viewModel.setImageViewResource(imageView, R.drawable.kahun_0)
                     }
                 }
-
             }catch (e:Exception){
                 viewModel.setDate("日付：")
-                viewModel.setPrefectureAndCityNameName("場所：未取得")
+                viewModel.setPrefectureAndCityNameName("場所：取得に失敗しました")
                 viewModel.setKahunHisanData("花粉飛散数：?? 個/m3")
                 viewModel.setTemperature("気温：??℃")
                 val imageView: ImageView = view.findViewById(R.id.kahun_image)

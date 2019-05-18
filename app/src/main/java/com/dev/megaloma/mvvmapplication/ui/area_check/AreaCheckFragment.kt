@@ -49,8 +49,9 @@ class AreaCheckFragment : Fragment() {
                 // クリックしたアイテムの位置を取得
                 val itemId = resources.getIdentifier(name,"string",context!!.packageName)
 
-                Log.d("Test","itemId $itemId")
-                Log.d("Test","getStr ${resources.getString(itemId)}")
+                //Log.d("Test","itemId $itemId")
+                //Log.d("Test","Name $name")
+                //Log.d("Test","getStr ${resources.getString(itemId)}")
 
                 // 都道府県コードに応じた市の配列を返す
                 val items = prefectureList(Integer.parseInt(resources.getString(itemId)))
