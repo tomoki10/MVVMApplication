@@ -99,8 +99,7 @@ class StatFragment : Fragment() {
         left.labelCount = Hour
         left.setDrawTopYLabelEntry(true)
         //整数表記の記載
-        left.valueFormatter = MyAxis()
-
+        left.valueFormatter = IntegerValueFormatter()
 
         //Y軸(右)
         val right = chart.axisRight
@@ -174,6 +173,10 @@ class StatFragment : Fragment() {
         }
         val bars = ArrayList<IBarDataSet>()
         val dataSet = BarDataSet(entries, "bar")
+
+        //整数表示
+        dataSet.valueFormatter = IntegerValueFormatter()
+
         //ハイライトさせない
         dataSet.isHighlightEnabled = false
 
@@ -199,7 +202,7 @@ class StatFragment : Fragment() {
 }
 
 // グラフの整数表記用
-class MyAxis : ValueFormatter() {
+class IntegerValueFormatter : ValueFormatter() {
     override fun getFormattedValue(value: Float): String {
         return value.toInt().toString()
     }
