@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -97,7 +98,9 @@ class StatFragment : Fragment() {
         left.axisMaximum = 500f
         left.labelCount = Hour
         left.setDrawTopYLabelEntry(true)
-        // 整数表記の記載がほしい
+        //整数表記の記載
+        left.valueFormatter = MyAxis()
+
 
         //Y軸(右)
         val right = chart.axisRight
@@ -194,9 +197,10 @@ class StatFragment : Fragment() {
         private const val Hour = 24
     }
 }
-//整数表記用
-//class MyAxis:IndexAxisValueFormatter {
-//    override fun getFormattedValue(value: Float): String {
-//        return value.toInt().toString()
-//    }
-//}
+
+// グラフの整数表記用
+class MyAxis : ValueFormatter() {
+    override fun getFormattedValue(value: Float): String {
+        return value.toInt().toString()
+    }
+}
