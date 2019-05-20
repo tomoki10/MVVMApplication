@@ -1,6 +1,5 @@
 package com.dev.megaloma.kahuninfoapp.source
 
-import android.util.Log
 import okhttp3.*
 import org.json.JSONObject
 
@@ -30,7 +29,7 @@ class SimpleHttp{
             jsonObj.put(searchCode, requestKeyInfo[searchCode])
             jsonObj.put(dateTime, requestKeyInfo[dateTime])
             jsonObj.put(singleMultipleFlag, requestKeyInfo[singleMultipleFlag])
-            Log.d("Test JsonObj", jsonObj.toString())
+//            Log.d("Test JsonObj", jsonObj.toString())
             val requestBody: RequestBody = RequestBody
                     .create(JSON,jsonObj.toString())
 
@@ -39,15 +38,15 @@ class SimpleHttp{
                     .url(httpsStr)
                     .post(requestBody)
                     .build()
-            Log.d("Http URL", request.url().toString())
-            Log.d("Http Header", request.headers().toString())
-            Log.d("Http Body", request.body().toString())
+//            Log.d("Http URL", request.url().toString())
+//            Log.d("Http Header", request.headers().toString())
+//            Log.d("Http Body", request.body().toString())
 
             val res: Response = client.newCall(request).execute()
             val resBody: ResponseBody = res.body()!!
-            Log.d("Http Response", res.toString())
-            Log.d("Http ResHeader", res.headers().toString())
-            Log.d("Http ResBody", res.body().toString())
+//            Log.d("Http Response", res.toString())
+//            Log.d("Http ResHeader", res.headers().toString())
+//            Log.d("Http ResBody", res.body().toString())
             return Pair(resBody.string(),res.code().toString())
         }
     }
