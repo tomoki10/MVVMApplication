@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.dev.megaloma.kahuninfoapp.ui.area_check.AreaCheckActivity
+import android.widget.Toast
 import com.dev.megaloma.kahuninfoapp.R
+import com.dev.megaloma.kahuninfoapp.ui.area_check.AreaCheckActivity
+import com.dev.megaloma.kahuninfoapp.ui.kahun_resource.ResourceActivity
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import kotlinx.android.synthetic.main.main_activity.*
 
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         //初回ログインの場合は、地域選択のActivityに移動
         if(prefer.getInt("city_code",0)==0){
+            Toast.makeText(this,"住んでいる近くの地域を選択してください",Toast.LENGTH_SHORT).show()
             val intent = Intent(this, AreaCheckActivity::class.java)
             startActivity(intent)
         }
