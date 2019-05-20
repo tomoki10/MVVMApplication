@@ -1,4 +1,4 @@
-package com.dev.megaloma.kahuninfoapp.ui.main
+package com.dev.megaloma.kahuninfoapp.ui.kahun_resource
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

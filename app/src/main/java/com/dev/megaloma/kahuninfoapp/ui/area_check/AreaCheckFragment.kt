@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,16 +45,19 @@ class AreaCheckFragment : Fragment() {
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
 
         recyclerViewAdapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
-            override fun onClick(view: View, name: String) {
-                // クリックしたアイテムの位置を取得
-                val itemId = resources.getIdentifier(name,"string",context!!.packageName)
+            override fun onClick(view: View, name: String, position: Int) {
+                // クリックしたアイテムの名前からIDを取得
+                //val itemId = resources.getIdentifier("HHH","string",context!!.packageName)
 
-                //Log.d("Test","itemId $itemId")
-                //Log.d("Test","Name $name")
-                //Log.d("Test","getStr ${resources.getString(itemId)}")
+                Log.d("Test","Position $position")
+//                Log.d("Test","itemId $itemId")
+//                Log.d("package",context!!.packageName)
+//                Log.d("Test","Name $name")
+//                Log.d("Test","getStr ${resources.getString(itemId)}")
 
                 // 都道府県コードに応じた市の配列を返す
-                val items = prefectureList(Integer.parseInt(resources.getString(itemId)))
+//                val items = prefectureList(Integer.parseInt(resources.getString(itemId)))
+                val items = prefectureList(position)
 
                 // デフォルトでチェックされているアイテム
                 val defaultItem = 0
@@ -107,7 +111,7 @@ class AreaCheckFragment : Fragment() {
 
     private fun prefectureList(prefectureIndex: Int):Array<String>{
         val typedArray: TypedArray = resources.obtainTypedArray(R.array.city_parent)
-        val result = resources.getStringArray(typedArray.getResourceId(prefectureIndex-1,0))
+        val result = resources.getStringArray(typedArray.getResourceId(prefectureIndex,0))
         typedArray.recycle()
         return result
     }
