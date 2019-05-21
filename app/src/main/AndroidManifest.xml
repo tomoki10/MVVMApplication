@@ -19,7 +19,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ad_key"/>
         
-        <activity android:name=".ui.main.ResourceActivity" />
+        <activity android:name=".ui.kahun_resource.ResourceActivity" />
         <activity android:name=".ui.area_check.AreaCheckActivity" />
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
