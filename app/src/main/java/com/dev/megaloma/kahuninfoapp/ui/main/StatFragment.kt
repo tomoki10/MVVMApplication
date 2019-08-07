@@ -79,6 +79,20 @@ class StatFragment : Fragment() {
         // 複数取得
         requestKeyInfo["SINGLE_MULTIPLE_FLAG"] = "1"
 
+        //花粉観測所の提供期間外期間に入った場合は、5月31日をデフォルトに設定する
+        val reqKeyMM = requestKeyInfo["DATE_TIME"]?.substring(4,6)
+        val acceptMMList = listOf("02","03","04","05")
+        val noAcceptMMListYear = listOf("06","07","08","09","10","11","12")
+        if (!acceptMMList.contains(reqKeyMM) ){
+            //今年度にデータがあれば今年を、それまでのデータがなければ去年を指定
+            if(noAcceptMMListYear.contains(reqKeyMM)) {
+                requestKeyInfo["DATE_TIME"] = requestKeyInfo["DATE_TIME"]!!.substring(0,4) + "053101"
+            }else{
+                val tmpYear = requestKeyInfo["DATE_TIME"]!!.substring(0,4).toInt() - 1
+                requestKeyInfo["DATE_TIME"] =  tmpYear.toString() + "053100"
+            }
+        }
+
         // Httpレスポンスの受け取り
         val responsePair: Pair<String,String> = SimpleHttp.doSimpleHttp(kahunApiUrl, apiKey, requestKeyInfo)
         val response :String = responsePair.first
@@ -134,7 +148,8 @@ class StatFragment : Fragment() {
                 chart.data = data
                 //タイトルの設定
                 val kahunData = Gson().fromJson(kahunJsonArray[0], KahunData::class.java)
-                statTitleText.text = getString(R.string.stat_title,
+                if(context!=null)
+                    statTitleText.text = getString(R.string.stat_title,
                         kahunData.PREFECTURES,
                         kahunData.CITY,
                         kahunData.DATE_TIME.substring(0, 4),
@@ -142,7 +157,7 @@ class StatFragment : Fragment() {
                         kahunData.DATE_TIME.substring(6, 8)
                 )
             } else {
-                statTitleText.text = "データ取得に失敗しました"
+                if(context!=null) statTitleText.text = "データ取得に失敗しました"
             }
 
             xAxis.valueFormatter = IndexAxisValueFormatter(labels)
@@ -185,7 +200,7 @@ class StatFragment : Fragment() {
 
         //Barの色をセット
         val colors = intArrayOf(R.color.material_green)
-        dataSet.setColors(colors,context)
+        if(context!=null) dataSet.setColors(colors,context)
         bars.add(dataSet)
         return bars
     }

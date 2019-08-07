@@ -100,6 +100,20 @@ class MainFragment : Fragment() {
         Log.d("SOKUTEI_KYOKU_CODE",requestKeyInfo["SOKUTEI_KYOKU_CODE"])
         Log.d("DATE_TIME",requestKeyInfo["DATE_TIME"])
 
+        //花粉観測所の提供期間外期間に入った場合は、5月31日をデフォルトに設定する
+        val reqKeyMM = requestKeyInfo["DATE_TIME"]?.substring(4,6)
+        val acceptMMList = listOf("02","03","04","05")
+        val noAcceptMMListYear = listOf("06","07","08","09","10","11","12")
+        if (!acceptMMList.contains(reqKeyMM) ){
+            //今年度にデータがあれば今年を、それまでのデータがなければ去年を指定
+            if(noAcceptMMListYear.contains(reqKeyMM)) {
+                requestKeyInfo["DATE_TIME"] = requestKeyInfo["DATE_TIME"]!!.substring(0,4) + "053101"
+            }else{
+                val tmpYear = requestKeyInfo["DATE_TIME"]!!.substring(0,4).toInt() - 1
+                requestKeyInfo["DATE_TIME"] =  tmpYear.toString() + "053100"
+            }
+        }
+
 
         GlobalScope.launch(Dispatchers.Main) {
             withContext(Dispatchers.Default) {
@@ -110,52 +124,63 @@ class MainFragment : Fragment() {
                 val response = it.first
                 val responseCode = it.second
 //                Log.d("response",response)
-//                Log.d("responseCode",responseCode)
-                if (responseCode == "200") {
-                    //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
-            Log.d("response",response)
-                    val json: JsonObject = Gson().fromJson(response, JsonObject::class.java)
-                            .get("body").asJsonObject.get("Item").asJsonObject
-            Log.d("Json return",json.toString())
+                Log.d("responseCode",responseCode)
+                try {
+                    if (responseCode == "200") {
+                        //JSONオブジェクトの整形（Lambda問い合わせの際の余分な部分をカット
+                        Log.d("response",response)
+                        val json: JsonObject = Gson().fromJson(response, JsonObject::class.java)
+                                .get("body").asJsonObject.get("Item").asJsonObject
+                        Log.d("Json return",json.toString())
 
-                    val kahunDataJson: KahunData = Gson().fromJson(json, KahunData::class.java)
-                    //年月日の表示を加工
-                    val date = kahunDataJson.DATE_TIME.substring(0, 4) + "年" +
-                            kahunDataJson.DATE_TIME.substring(4, 6) + "月" +
-                            kahunDataJson.DATE_TIME.substring(6, 8) + "日" +
-                            kahunDataJson.DATE_TIME.substring(8, 10) + "時"
-                    viewModel.setDate("日付：$date")
-                    viewModel.setPrefectureAndCityNameName("場所：" + kahunDataJson.PREFECTURES
-                            + kahunDataJson.CITY)
-                    viewModel.setKahunHisanData("花粉飛散数：${kahunDataJson.KAHUN_HISAN} 個/m3")
-                    viewModel.setTemperature("気温：${kahunDataJson.TEMPERATURE} ℃")
+                        val kahunDataJson: KahunData = Gson().fromJson(json, KahunData::class.java)
+                        //年月日の表示を加工
+                        val date = kahunDataJson.DATE_TIME.substring(0, 4) + "年" +
+                                kahunDataJson.DATE_TIME.substring(4, 6) + "月" +
+                                kahunDataJson.DATE_TIME.substring(6, 8) + "日" +
+                                kahunDataJson.DATE_TIME.substring(8, 10) + "時"
+                        viewModel.setDate("日付：$date")
+                        viewModel.setPrefectureAndCityNameName("場所：" + kahunDataJson.PREFECTURES
+                                + kahunDataJson.CITY)
+                        viewModel.setKahunHisanData("花粉飛散数：${kahunDataJson.KAHUN_HISAN} 個/m3")
+                        viewModel.setTemperature("気温：${kahunDataJson.TEMPERATURE} ℃")
 
-                    //画像変更 のちにfindByIdを使わない方法に変更
-                    val imageView: ImageView = view.findViewById(R.id.kahun_image)
-                    // 花粉強度に合わせて画像を変更
-                    when {
-                        kahunDataJson.KAHUN_HISAN.toInt() >= 1000 -> {
-                            viewModel.setKahunRyouText("花粉量：非常に多い")
-                            viewModel.setImageViewResource(imageView, R.drawable.kahun_4)
+                        //画像変更 のちにfindByIdを使わない方法に変更
+                        val imageView: ImageView = view.findViewById(R.id.kahun_image)
+                        // 花粉強度に合わせて画像を変更
+                        when {
+                            kahunDataJson.KAHUN_HISAN.toInt() >= 1000 -> {
+                                viewModel.setKahunRyouText("花粉量：非常に多い")
+                                viewModel.setImageViewResource(imageView, R.drawable.kahun_4)
+                            }
+                            kahunDataJson.KAHUN_HISAN.toInt() >= 500 -> {
+                                viewModel.setKahunRyouText("花粉量：かなり多い")
+                                viewModel.setImageViewResource(imageView, R.drawable.kahun_3)
+                            }
+                            kahunDataJson.KAHUN_HISAN.toInt() >= 100 -> {
+                                viewModel.setKahunRyouText("花粉量：多い")
+                                viewModel.setImageViewResource(imageView, R.drawable.kahun_2)
+                            }
+                            kahunDataJson.KAHUN_HISAN.toInt() >= 50 -> {
+                                viewModel.setKahunRyouText("花粉量：少し多い")
+                                viewModel.setImageViewResource(imageView, R.drawable.kahun_1)
+                            }
+                            else -> {
+                                viewModel.setKahunRyouText("花粉量：少し")
+                                viewModel.setImageViewResource(imageView, R.drawable.kahun_0)
+                            }
                         }
-                        kahunDataJson.KAHUN_HISAN.toInt() >= 500 -> {
-                            viewModel.setKahunRyouText("花粉量：かなり多い")
-                            viewModel.setImageViewResource(imageView, R.drawable.kahun_3)
-                        }
-                        kahunDataJson.KAHUN_HISAN.toInt() >= 100 -> {
-                            viewModel.setKahunRyouText("花粉量：多い")
-                            viewModel.setImageViewResource(imageView, R.drawable.kahun_2)
-                        }
-                        kahunDataJson.KAHUN_HISAN.toInt() >= 50 -> {
-                            viewModel.setKahunRyouText("花粉量：少し多い")
-                            viewModel.setImageViewResource(imageView, R.drawable.kahun_1)
-                        }
-                        else -> {
-                            viewModel.setKahunRyouText("花粉量：少し")
-                            viewModel.setImageViewResource(imageView, R.drawable.kahun_0)
-                        }
+                    } else {
+                        //通信障害やデータ取得に失敗した場合は、ダミーコードで埋める
+                        viewModel.setDate("日付：")
+                        viewModel.setPrefectureAndCityNameName("場所：取得に失敗しました")
+                        viewModel.setKahunHisanData("花粉飛散数：?? 個/m3")
+                        viewModel.setTemperature("気温：??℃")
+                        val imageView: ImageView = view.findViewById(R.id.kahun_image)
+                        viewModel.setKahunRyouText("花粉量：未取得")
+                        viewModel.setImageViewResource(imageView, R.drawable.kahun_0)
                     }
-                } else {
+                }catch (e:Exception){
                     //通信障害やデータ取得に失敗した場合は、ダミーコードで埋める
                     viewModel.setDate("日付：")
                     viewModel.setPrefectureAndCityNameName("場所：取得に失敗しました")
